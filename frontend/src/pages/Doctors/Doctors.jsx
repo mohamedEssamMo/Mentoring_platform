@@ -1,7 +1,6 @@
-import React from 'react';
 import {doctors} from '../../assets/data/doctors';
-// import DoctorCard from '../../components/Doctors/DoctorCard';
-// import Testimonial from '../../components/Testimonial/Testimonial'
+import DoctorCard from '../../components/Doctors/DoctorCard';
+import Testimonial from '../../components/Testimonial/Testimonial'
 
 const Doctors = () => {
   return (
@@ -25,9 +24,9 @@ const Doctors = () => {
       <section>
         <div className="container">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
-            {/* {doctors.map(doctor => (
+            {doctors.map(doctor => (
               <DoctorCard key={doctor.id} doctor={doctor} />
-            ))} */}
+            ))}
           </div>
         </div>
       </section>
@@ -40,7 +39,7 @@ const Doctors = () => {
               World-class care for everyone. Our health System offers unmatched, expert health care.
             </p>
           </div>
-          {/* <Testimonial /> */}
+          <Testimonial />
         </div>
       </section>
     </>
