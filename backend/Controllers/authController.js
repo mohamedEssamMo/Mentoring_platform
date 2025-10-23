@@ -1,9 +1,10 @@
-import User from "../Models/UserSchema.js";
-import Doctor from "../Models/DoctorSchema.js";
+import User from "../models/UserSchema.js";
+import Doctor from "../models/DoctorSchema.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+
 const generateToken = (user) => {
-  return jwt.sign({ id: user._id, role: role }, process.env.JWT_SECRET_Key, {
+  return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET_Key, {
     expiresIn: "7d",
   });
 };
@@ -23,7 +24,7 @@ export const register = async (req, res) => {
         .json({ message: "User with this email already exists" });
     }
     const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, hashedPassword);
+    const hashedPassword = await bcrypt.hash(password, salt);
     let newUser = null;
     if (role === "patient") {
       newUser = new User({
@@ -55,35 +56,33 @@ export const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = null;
+
     const patient = await User.findOne({ email });
     const doctor = await Doctor.findOne({ email });
-    if (patient) {
-      user = patient;
-    }
-    if (doctor) {
-      user = doctor;
-    }
-    // check if user exists
+
+    if (patient) user = patient;
+    if (doctor) user = doctor;
+
     if (!user) {
-      return res
-        .status(400)
-        .json({ message: "User with this email does not exist" });
+      return res.status(400).json({ message: "User with this email does not exist" });
     }
-    const isPasswordMatch = bcrypt.compare(password, user.password);
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
     if (!isPasswordMatch) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid credentials" });
+      return res.status(400).json({ success: false, message: "Invalid credentials" });
     }
-    // get token
+
     const token = generateToken(user);
-    const { password: ABC, role, appointments, ...rest } = user.doc;
+    const { password: ABC, role, appointments, ...rest } = user._doc;
+
     res.status(200).json({
       success: true,
-      message: "Sucessful Login",
+      message: "Successful Login",
       data: { ...rest, role, token },
     });
   } catch (error) {
+    console.error("Login error:", error);
     res.status(500).json({ success: false, message: "Failed to login" });
   }
 };
+
