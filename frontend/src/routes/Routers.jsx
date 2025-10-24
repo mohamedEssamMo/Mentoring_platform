@@ -7,6 +7,8 @@ import Signup from "../pages/Signup";
 import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
 import Notfound from "../pages/NotFound";
+import MyAccount from "../Dashboard/user-account/MYAccount.jsx"
+import Dashboard from "../Dashboard/doctor-account/Dashboard.jsx"
 
 import { Routes, Route } from "react-router-dom";
 
@@ -21,6 +23,9 @@ const Routers = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctors/:id" element={<DoctorDetails />} />
+      <Route path="/users/profile/me" element={<MyAccount />} />
+      <Route path="/doctors/profile/me" element={<Dashboard />} />
+
       <Route path="*" element={<Notfound />} />
     </Routes>
   );
