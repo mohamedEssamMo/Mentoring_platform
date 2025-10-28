@@ -59,17 +59,20 @@ export const getUserProfile = async(req,res)=>{
   }
 }
 
-export const getMyAppointments = async(req, res) =>{
-
+export const getMyAppointments = async (req, res) => {
   try {
-    const bookings = await Booking;
-    const doctorIds = bookings.map(el=>el.doctor.id);
-    const doctors = await Doctor.find({_id: {$in:doctorIds}}).select('-password')
+    const userId = req.userId;
+    const bookings = await Booking.find({ user: userId });
 
-    res.status(200).json({success:true, message:'Appointments are getting', data:doctors})
+    const doctorIds = bookings.map(el => el.doctor);
+    const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select("-password");
 
+    res.status(200).json({
+      success: true,
+      message: "Appointments retrieved successfully",
+      data: doctors,
+    });
   } catch (err) {
-    return res.status(500).json({Success:false, message:`something went wrong : ${err}`})
-    
+    res.status(500).json({ success: false, message: `Something went wrong: ${err}` });
   }
-}
+};
