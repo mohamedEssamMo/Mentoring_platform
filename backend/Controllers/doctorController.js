@@ -64,24 +64,31 @@ export const getAllDoctor = async (req, res) => {
   }
 };
 
-export const getDoctorProfile = async(req,res)=>{
-  const doctorId = req.doctorId;
+export const getDoctorProfile = async (req, res) => {
   try {
+    const doctorId = req.userId; // ✅ this matches authenticate()
+
     const doctor = await Doctor.findById(doctorId);
 
-    if(!doctor){
-      return res.status(404).json({Success:false, message:'Doctor not found'})
+    if (!doctor) {
+      return res.status(404).json({ success: false, message: "Doctor not found" });
     }
-    
-    const {password, ...rest} = user._doc;
-    const appointments = await Booking.find({doctor:doctorId})
-    res.status(200).json({success:true, message:'profile info is getting', data:{...rest, appointments}})
 
-  } catch (err) {  
-    return res.status(500).json({Success:false, message:`something went wrong : ${err}`})
-    
+    const { password, ...rest } = doctor._doc;
+    const appointments = await Booking.find({ doctor: doctorId });
+
+    res.status(200).json({
+      success: true,
+      message: "Profile info retrieved successfully",
+      data: { ...rest, appointments },
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: `Something went wrong: ${err.message}`,
+    });
   }
-}
+};
 
 export const getMyAppointments = async(req, res) =>{
 

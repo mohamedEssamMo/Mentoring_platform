@@ -47,7 +47,7 @@ const Login = () => {
         payload: {
           user:result.data,
           token:result.data.token,
-          role:result.data.role === undefined ? 'doctor' : 'patient'
+          role:result.data.role,
         },
       });
 

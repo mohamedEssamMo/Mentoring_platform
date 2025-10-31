@@ -9,6 +9,7 @@ const DoctorSchema = new mongoose.Schema({
   ticketPrice: { type: Number },
   role: {
     type: String,
+    default: "doctor",
   },
 
   // Fields for doctors only

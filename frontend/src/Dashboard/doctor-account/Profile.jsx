@@ -212,9 +212,9 @@ const Profile = ({ doctorData }) => {
             onChange={handleInputChange}
             placeholder="Phone number"
             className="form_input"
-            readOnly
-            aria-readonly
-            disabled={true}
+            // readOnly
+            // aria-readonly
+            // disabled={true}
           />
         </div>
 

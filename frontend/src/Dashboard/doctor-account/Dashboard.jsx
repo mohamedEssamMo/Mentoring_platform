@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Loader from "../../components/Loader/Loading";
 import Error from "../../components/Error/Error";
 import useFetchData from "../../hooks/useFetchData";
@@ -7,7 +7,7 @@ import Tabs from "./Tabs";
 import starIcon from "../../assets/images/Star.png";
 import DoctorAbout from "../../pages/Doctors/DoctorAbout";
 import Profile from "./Profile";
-import Tabs from "../Dashboard/doctor-account/Tabs.jsx";
+import defaltDoctor from "../../assets/images/doctor-img01.png";
 
 const Dashboard = () => {
   // ✅ Fetch doctor profile
@@ -62,7 +62,7 @@ const Dashboard = () => {
                     <div className="flex items-center gap-4 mb-10">
                       <figure className="max-w-[200px] max-h-[200px]">
                         <img
-                          src={data?.photo || "/default-doctor.jpg"} // ✅ fallback image
+                          src={data?.photo || defaltDoctor} // ✅ fallback image
                           alt={data?.name || "Doctor photo"}
                           className="w-full rounded-md object-cover"
                         />
