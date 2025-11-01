@@ -8,38 +8,36 @@ import starIcon from "../../assets/images/Star.png";
 import DoctorAbout from "../../pages/Doctors/DoctorAbout";
 import Profile from "./Profile";
 import defaltDoctor from "../../assets/images/doctor-img01.png";
+import Appointment from "./Appointments";
 
 const Dashboard = () => {
-  // ✅ Fetch doctor profile
-  const { data, loading, error } = useFetchData(
-    `${BASE_URL}/doctors/profile/me`
-  );
+  const { data: doctorData, loading, error } = useFetchData(`${BASE_URL}/doctors/profile/me`);
   const [tab, setTab] = useState("overview");
 
   return (
-    <section>
-      <div className="max-w-[1170px] px-5 mx-auto">
-        {/* ✅ Handle loading/error states cleanly */}
+    <section className="py-10 bg-gray-50 min-h-screen">
+      <div className="max-w-[1200px] px-5 mx-auto">
         {loading ? (
           <Loader />
         ) : error ? (
           <Error />
         ) : (
-          <div className="grid lg:grid-cols-3 gap-[30px] lg:gap-[50px]">
+          <div className="grid lg:grid-cols-3 gap-8 lg:gap-12">
             {/* Left side — Tabs */}
-            <Tabs tab={tab} setTab={setTab} />
+            <aside className="bg-white shadow-md rounded-2xl p-6 sticky top-20 h-fit">
+              <Tabs tab={tab} setTab={setTab} />
+            </aside>
 
             {/* Right side — Content */}
             <div className="lg:col-span-2">
-              {/* ✅ Approval alert */}
-              {data?.isApproved === "pending" && (
-                <div className="flex p-4 mb-4 text-yellow-800 bg-yellow-50 rounded-lg">
+              {/* Approval Alert */}
+              {doctorData?.isApproved === "pending" && (
+                <div className="flex items-start p-4 mb-6 text-yellow-800 bg-yellow-50 border border-yellow-200 rounded-xl shadow-sm">
                   <svg
                     aria-hidden="true"
-                    className="flex-shrink-0 w-5 h-5"
+                    className="flex-shrink-0 w-6 h-6 mt-1 text-yellow-500"
                     fill="currentColor"
                     viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       fillRule="evenodd"
@@ -47,65 +45,71 @@ const Dashboard = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="ml-2">
-                    Your profile is under review. You'll be notified once
-                    approved.
+                  <span className="ml-3 text-sm font-medium">
+                    Your profile is under review. You’ll be notified once approved.
                   </span>
                 </div>
               )}
 
-              {/* ✅ Tab content */}
-              <div className="mt-8">
+              {/* Tab content */}
+              <div className="mt-6">
                 {tab === "overview" && (
-                  <div>
-                    {/* Doctor Profile Header */}
-                    <div className="flex items-center gap-4 mb-10">
-                      <figure className="max-w-[200px] max-h-[200px]">
+                  <div className="bg-white shadow-md rounded-2xl p-6 md:p-8">
+                    {/* Doctor Header */}
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
+                      <figure className="w-[160px] h-[160px] rounded-xl overflow-hidden shadow-sm">
                         <img
-                          src={data?.photo || defaltDoctor} // ✅ fallback image
-                          alt={data?.name || "Doctor photo"}
-                          className="w-full rounded-md object-cover"
+                          src={doctorData?.photo || defaltDoctor}
+                          alt={doctorData?.name || "Doctor photo"}
+                          className="w-full h-full object-cover"
                         />
                       </figure>
 
-                      <div>
-                        <span className="bg-[#CCF0F3] text-irisBlueColor py-1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold">
-                          {data?.specialization}
+                      <div className="text-center sm:text-left">
+                        <span className="inline-block bg-[#CCF0F3] text-irisBlueColor py-1 px-4 rounded-full text-sm font-semibold mb-2">
+                          {doctorData?.specialization}
                         </span>
-
-                        <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">
-                          {data?.name}
+                        <h3 className="text-2xl font-bold text-gray-800">
+                          {doctorData?.name}
                         </h3>
 
-                        <div className="flex items-center gap-[6px]">
-                          <span className="flex items-center gap-[6px] text-headingColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
-                            <img src={starIcon} alt="rating star" />
-                            {data?.averageRating || 0}
+                        <div className="flex items-center justify-center sm:justify-start gap-2 mt-1">
+                          <span className="flex items-center gap-1 text-gray-700 font-semibold">
+                            <img src={starIcon} alt="rating star" className="w-5 h-5" />
+                            {doctorData?.averageRating || 0}
                           </span>
-
-                          <span className="text-textColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
-                            ({data?.totalRating || 0})
+                          <span className="text-gray-500 text-sm">
+                            ({doctorData?.totalRating || 0})
                           </span>
                         </div>
 
-                        <p className="text__para font-[15px] lg:max-w-[390px] leading-6">
-                          {data?.bio || "Doctor bio not provided."}
+                        <p className="text-gray-600 mt-3 leading-relaxed text-sm md:text-base max-w-md">
+                          {doctorData?.bio || "Doctor bio not provided."}
                         </p>
                       </div>
                     </div>
 
-                    {/* Doctor About Section */}
+                    {/* Doctor About */}
                     <DoctorAbout
-                      name={data?.name}
-                      about={data?.about}
-                      qualifications={data?.qualifications}
-                      experiences={data?.experiences}
+                      name={doctorData?.name}
+                      about={doctorData?.about}
+                      qualifications={doctorData?.qualifications}
+                      experiences={doctorData?.experiences}
                     />
                   </div>
                 )}
 
-                {tab === "appointments" && <div>appointments</div>}
-                {tab === "settings" && <Profile doctorData={data} />}
+                {tab === "appointments" && (
+                  <div className="bg-white shadow-md rounded-2xl p-6">
+                    <Appointment appointments={doctorData.appointments} />
+                  </div>
+                )}
+
+                {tab === "settings" && (
+                  <div className="bg-white shadow-md rounded-2xl p-6">
+                    <Profile doctorData={doctorData} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
