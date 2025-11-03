@@ -8,6 +8,7 @@ import DoctorDetails from "../pages/Doctors/DoctorDetails";
 import Notfound from "../pages/NotFound";
 import MyAccount from "../Dashboard/user-account/MYAccount.jsx";
 import Dashboard from "../Dashboard/doctor-account/Dashboard.jsx";
+import CheckoutSuccess from "../pages/CheckoutSuccess";
 
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -39,7 +40,7 @@ const Routers = () => {
           </ProtectedRoute>
         }
       />
-
+      <Route path="/checkout-success" element={<CheckoutSuccess/>} />
       <Route path="*" element={<Notfound />} />
     </Routes>
   );
