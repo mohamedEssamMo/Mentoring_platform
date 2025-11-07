@@ -10,7 +10,7 @@ const DoctorCard = ({ doctor }) => {
   return (
     <div className="p-3 lg:p-5 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-white">
       {/* Doctor Image */}
-      <div className="w-full h-[260px] md:h-[280px] overflow-hidden rounded-lg flex justify-center items-center bg-gray-100">
+      <div className="w-full h-[300px] md:h-[320px] overflow-hidden rounded-lg flex justify-center items-center bg-gray-100">
         <img
           src={photo}
           alt={name}

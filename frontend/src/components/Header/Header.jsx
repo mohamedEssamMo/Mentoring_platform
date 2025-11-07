@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { BiMenu } from "react-icons/bi";
 import logo from "../../assets/images/logo.png";
 import { authContext } from "../../context/AuthContext";
+import Avatar from '../../assets/images/825.jpg'
 
 const navLinks = [
   { path: "/home", display: "Home" },
@@ -76,11 +77,11 @@ const Header = () => {
                       : "/users/profile/me"
                   } `}
                 >
-                  <figure className="w-[35px] h-[35px] rounded-full overflow-hidden cursor-pointer">
+                  <figure className="w-[50px] h-[50px] rounded-full overflow-hidden cursor-pointer">
                     <img
-                      src={user?.photo}
+                      src={user?.photo || Avatar}
                       alt="User"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover scale-150"
                     />
                   </figure>
                 </Link>
