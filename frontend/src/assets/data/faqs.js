@@ -1,27 +1,27 @@
 export const faqs = [
   {
-    question: "What is your medical care?",
+    question: "How can I book a mentorship session?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Booking a session is simple! Browse through our list of mentors, select your preferred expert, and choose a time that fits your schedule. You can confirm and pay directly through the platform.",
   },
   {
-    question: "What happens if I need to go a hospital?",
+    question: "Do mentors offer one-on-one lessons?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Yes! Most mentors provide private one-on-one sessions where you can get personalized guidance and direct feedback on your progress.",
   },
   {
-    question: "What happens if I need to go a hospital?",
+    question: "Can I access recorded sessions after a live class?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Absolutely. Every live mentorship session is recorded, so you can revisit it anytime to review and reinforce what you've learned.",
   },
   {
-    question: "Can I visit your medical office?",
+    question: "How do I become a mentor on the platform?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "You can apply to become a mentor by creating a mentor profile, sharing your expertise, and submitting an application. Our team reviews each application to ensure top-quality mentoring.",
   },
   {
-    question: "Does you provide urgent care?",
+    question: "Is there a free trial or demo session?",
     content:
-      "One Medical was founded on a better model of care one designed around patients needs that provides a higher level of quality and service affordably. We do this through innovative design, excellent customer service, and the efficient use of technology.",
+      "Yes! Many mentors offer free demo sessions to help you experience their teaching style and see if it’s a good fit before you commit.",
   },
 ];

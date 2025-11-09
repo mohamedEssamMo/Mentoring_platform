@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
@@ -27,16 +26,13 @@ const FaqItem = ({ item }) => {
         </div>
       </div>
 
- 
       {isOpen && (
         <div className="mt-4">
-          <p className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-textcolor">
+          <p className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-textColor">
             {item.content}
           </p>
         </div>
       )}
-
-
     </div>
   );
 };
