@@ -1,6 +1,4 @@
-import heroImg01 from "../assets/images/mentor1.png";
-import heroImg02 from "../assets/images/mentor2.png";
-import heroImg03 from "../assets/images/mentor3.png";
+import heroImg01 from "../assets/images/MentorHero.png";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
@@ -21,58 +19,49 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero__section pt-[60px] 2xl:h-[800px]">
-        <div className="container">
-          <div className="flex flex-col lg:flex-row gap-[90px] items-center justify-between">
-            <div>
-              <div className="lg:w-[570px]">
-                <h1 className="text-[36px] leading-[46px] text-headingColor font-[800] md:text-[60px] md:leading-[70px]">
-                  Empower your learning with expert mentors
-                </h1>
-                <p className="text__para">
-                  Learn with top educators and mentors across various fields.
-                  Build your skills, connect with professionals, and grow your
-                  potential anytime, anywhere.
-                </p>
-                <button className="btn">Find a Mentor</button>
-              </div>
+      <section className="hero__section py-20 bg-[#f9fafb] mt-5">
+        <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-16 px-6 lg:px-12">
+          {/* Left Content */}
+          <div className="flex-1 text-center lg:text-left">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-headingColor leading-tight mb-6">
+              Empower your learning with expert mentors
+              <span className="text-blue-600">Online Courses</span> For All
+            </h1>
 
-              <div className="mt-[30px] lg:mt-[70px] flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-[30px]">
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    50+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-yellowColor rounded-full block mt-[-14px]"></span>
-                  <p className="text__para">Professional Mentors</p>
-                </div>
+            <p className="text__para mb-8 text-gray-600 text-lg leading-relaxed">
+              Learn with top educators and mentors across various fields. Build
+              your skills, connect with professionals, and grow your potential
+              anytime, anywhere.
+              Own your future learning new skills online with
+              expert mentors and top educators.
+            </p>
 
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    20+
-                  </h2>
-                  <span className="w-[100px] h-2 bg-purpleColor rounded-full block mt-[-14px]"></span>
-                  <p className="text__para">Subjects & Fields</p>
-                </div>
-
-                <div>
-                  <h2 className="text-[36px] leading-[56px] lg:text-[44px] lg:leading-[54px] font-[700] text-headingColor">
-                    100%
-                  </h2>
-                  <span className="w-[100px] h-2 bg-irisBlueColor rounded-full block mt-[-14px]"></span>
-                  <p className="text__para">Student Satisfaction</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-[30px] justify-end">
+            <div className="grid grid-cols-3 gap-6 text-center lg:text-left">
               <div>
-                <img className="w-full" src={heroImg01} alt="" />
+                <h2 className="text-3xl font-bold text-headingColor">50+</h2>
+                <span className="block w-16 h-1 bg-yellow-400 mx-auto lg:mx-0 mt-1 rounded-full"></span>
+                <p className="text__para mt-2">Professional Mentors</p>
               </div>
-              <div className="mt-[30px]">
-                <img src={heroImg02} alt="" className="w-full mb-[30px]" />
-                <img src={heroImg03} alt="" className="w-full" />
+              <div>
+                <h2 className="text-3xl font-bold text-headingColor">20+</h2>
+                <span className="block w-16 h-1 bg-purple-500 mx-auto lg:mx-0 mt-1 rounded-full"></span>
+                <p className="text__para mt-2">Subjects & Fields</p>
+              </div>
+              <div>
+                <h2 className="text-3xl font-bold text-headingColor">100%</h2>
+                <span className="block w-16 h-1 bg-cyan-500 mx-auto lg:mx-0 mt-1 rounded-full"></span>
+                <p className="text__para mt-2">Student Satisfaction</p>
               </div>
             </div>
+          </div>
+
+          {/* Right Image */}
+          <div className="flex-1 flex justify-center lg:justify-end">
+            <img
+              src={heroImg01}
+              alt="Online learning illustration"
+              className="w-full max-w-[500px] drop-shadow-lg"
+            />
           </div>
         </div>
       </section>

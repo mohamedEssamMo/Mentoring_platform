@@ -22,21 +22,28 @@ const Testimonial = () => {
       >
         {/* Student 1 */}
         <SwiperSlide>
-          <div className="py-[30px] px-5 rounded-[13px] shadow-md bg-white">
+          <div className="py-[30px] px-5 rounded-xl **border border-solid border-gray-100** **shadow-lg** **hover:shadow-xl transition-all duration-300** bg-white">
             <div className="flex items-center gap-[13px]">
-              <img src={studentAvatar} alt="student" />
+              {/* Enhanced Avatar Style: Circular border and rounded image */}
+              <img
+                src={studentAvatar}
+                alt="student"
+                className="w-[60px] h-[60px] rounded-full object-cover border-2 border-primaryColor"
+              />
               <div>
-                <h4 className="text-[18px] leading-[30px] font-semibold text-headingColor">
+                <h4 className="text-[18px] leading-[30px] font-bold text-headingColor">
                   Sarah Ahmed
                 </h4>
-                <div className="flex items-center gap-[2px]">
+                <div className="flex items-center gap-[2px] mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <HiStar key={i} className="text-yellowColor w-[18px] h-5" />
+                    <HiStar key={i} className="text-yellow-400 w-4 h-4" />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-[16px] leading-7 mt-4 text-textColor font-[400]">
+            {/* Added a divider for visual separation */}
+            <hr className="my-4 border-gray-100" />
+            <p className="text-[16px] leading-7 mt-4 **text-gray-700** font-[400] italic">
               “I joined Mentorship to improve my programming skills. My mentor
               was patient, friendly, and explained everything clearly — now I’m
               more confident in my projects!”
@@ -46,21 +53,26 @@ const Testimonial = () => {
 
         {/* Student 2 */}
         <SwiperSlide>
-          <div className="py-[30px] px-5 rounded-[13px] shadow-md bg-white">
+          <div className="py-[30px] px-5 rounded-xl border border-solid border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
             <div className="flex items-center gap-[13px]">
-              <img src={studentAvatar} alt="student" />
+              <img
+                src={studentAvatar}
+                alt="student"
+                className="w-[60px] h-[60px] rounded-full object-cover border-2 border-primaryColor"
+              />
               <div>
-                <h4 className="text-[18px] leading-[30px] font-semibold text-headingColor">
+                <h4 className="text-[18px] leading-[30px] font-bold text-headingColor">
                   Mohamed Youssef
                 </h4>
-                <div className="flex items-center gap-[2px]">
+                <div className="flex items-center gap-[2px] mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <HiStar key={i} className="text-yellowColor w-[18px] h-5" />
+                    <HiStar key={i} className="text-yellow-400 w-4 h-4" />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-[16px] leading-7 mt-4 text-textColor font-[400]">
+            <hr className="my-4 border-gray-100" />
+            <p className="text-[16px] leading-7 mt-4 text-gray-700 font-[400] italic">
               “The mentorship sessions helped me a lot in preparing for my
               design career. The feedback I got was amazing and practical!”
             </p>
@@ -69,21 +81,26 @@ const Testimonial = () => {
 
         {/* Student 3 */}
         <SwiperSlide>
-          <div className="py-[30px] px-5 rounded-[13px] shadow-md bg-white">
+          <div className="py-[30px] px-5 rounded-xl border border-solid border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
             <div className="flex items-center gap-[13px]">
-              <img src={studentAvatar} alt="student" />
+              <img
+                src={studentAvatar}
+                alt="student"
+                className="w-[60px] h-[60px] rounded-full object-cover border-2 border-primaryColor"
+              />
               <div>
-                <h4 className="text-[18px] leading-[30px] font-semibold text-headingColor">
+                <h4 className="text-[18px] leading-[30px] font-bold text-headingColor">
                   Amina Salah
                 </h4>
-                <div className="flex items-center gap-[2px]">
+                <div className="flex items-center gap-[2px] mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <HiStar key={i} className="text-yellowColor w-[18px] h-5" />
+                    <HiStar key={i} className="text-yellow-400 w-4 h-4" />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-[16px] leading-7 mt-4 text-textColor font-[400]">
+            <hr className="my-4 border-gray-100" />
+            <p className="text-[16px] leading-7 mt-4 text-gray-700 font-[400] italic">
               “I learned data analysis through Mentorship. My mentor guided me
               step by step — I even got an internship afterward!”
             </p>
@@ -92,21 +109,26 @@ const Testimonial = () => {
 
         {/* Student 4 */}
         <SwiperSlide>
-          <div className="py-[30px] px-5 rounded-[13px] shadow-md bg-white">
+          <div className="py-[30px] px-5 rounded-xl border border-solid border-gray-100 shadow-lg hover:shadow-xl transition-all duration-300 bg-white">
             <div className="flex items-center gap-[13px]">
-              <img src={studentAvatar} alt="student" />
+              <img
+                src={studentAvatar}
+                alt="student"
+                className="w-[60px] h-[60px] rounded-full object-cover border-2 border-primaryColor"
+              />
               <div>
-                <h4 className="text-[18px] leading-[30px] font-semibold text-headingColor">
+                <h4 className="text-[18px] leading-[30px] font-bold text-headingColor">
                   Karim Hassan
                 </h4>
-                <div className="flex items-center gap-[2px]">
+                <div className="flex items-center gap-[2px] mt-1">
                   {[...Array(5)].map((_, i) => (
-                    <HiStar key={i} className="text-yellowColor w-[18px] h-5" />
+                    <HiStar key={i} className="text-yellow-400 w-4 h-4" />
                   ))}
                 </div>
               </div>
             </div>
-            <p className="text-[16px] leading-7 mt-4 text-textColor font-[400]">
+            <hr className="my-4 border-gray-100" />
+            <p className="text-[16px] leading-7 mt-4 text-gray-700 font-[400] italic">
               “Mentorship changed my perspective on learning. It’s not just
               lessons — it’s a complete growth experience with real mentors!”
             </p>
