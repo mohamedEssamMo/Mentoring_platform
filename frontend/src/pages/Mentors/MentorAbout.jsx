@@ -1,80 +1,103 @@
 import { formateDate } from "../../utils/formateDate";
+import { Link } from "react-router-dom";
 
-const MentorAbout = ({ name, about, qualifications, experiences }) => {
+const MentorAbout = ({ name, about, qualifications, experiences, links }) => {
   return (
-    <div className="space-y-16 animate-fadeIn">
-      {/* --- About Section --- */}
-      <div className="relative group">
-        <h3 className="text-[22px] leading-[32px] text-headingColor font-semibold flex items-center gap-2">
-          About
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-irisBlueColor to-cyan-500 font-extrabold text-[26px] leading-9 ml-2">
-            {name}
-          </span>
+    <div className="space-y-12">
+      {/* ---------- About Section ---------- */}
+      <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+        <h3 className="text-[22px] font-semibold text-headingColor flex items-center gap-2">
+          About <span className="text-irisBlueColor font-bold">{name}</span>
         </h3>
-        <p className="text__para mt-4 text-textColor/90 leading-7 tracking-wide group-hover:text-textColor transition-all duration-300">
+        <p className="mt-3 text-[15px] leading-relaxed text-gray-600">
           {about}
         </p>
-
-        <div className="absolute -bottom-2 left-0 w-1/2 h-[2px] bg-gradient-to-r from-irisBlueColor to-cyan-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       </div>
 
-      {/* --- Education Section --- */}
-      <div className="relative">
-        <h3 className="text-[22px] leading-[32px] font-semibold text-headingColor mb-6 flex items-center gap-2">
-          🎓 <span>Education</span>
-        </h3>
+      {/* ---------- Links Section ---------- */}
+      {links?.length > 0 && (
+        <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 className="text-[20px] font-semibold text-headingColor mb-4">
+            Professional Links
+          </h3>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {links.map((item, index) => (
+              <li
+                key={index}
+                className="bg-[#E0F7FA] text-irisBlueColor hover:bg-irisBlueColor hover:text-white transition-all duration-300 text-center font-medium text-[15px] py-2 rounded-full shadow-sm"
+              >
+                {item.link.startsWith("http") ? (
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link to={item.link}>{item.name}</Link>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-        <ul className="space-y-6">
-          {qualifications?.map((item, index) => (
-            <li
-              key={index}
-              className="bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl p-5 hover:scale-[1.02] hover:shadow-[0_0_15px_rgba(0,255,255,0.3)] transition-all duration-300"
-            >
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
+      {/* ---------- Education Section ---------- */}
+      {qualifications?.length > 0 && (
+        <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 className="text-[20px] font-semibold text-headingColor mb-4">
+            Education
+          </h3>
+          <ul className="divide-y divide-gray-100">
+            {qualifications.map((item, index) => (
+              <li
+                key={index}
+                className="py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+              >
                 <div>
-                  <span className="text-cyan-400 text-[15px] font-semibold tracking-wide">
-                    {formateDate(item.startingDate)} —{" "}
-                    {formateDate(item.endingDate)}
-                  </span>
-                  <p className="text-[17px] font-semibold text-textColor mt-1">
+                  <p className="text-[16px] font-semibold text-headingColor">
                     {item.degree}
                   </p>
+                  <p className="text-[14px] text-gray-500 mt-1">
+                    {item.university}
+                  </p>
                 </div>
-                <p className="text-[15px] text-gray-400 mt-2 sm:mt-0 italic">
-                  {item.university}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+                <span className="text-irisBlueColor text-[14px] font-medium whitespace-nowrap">
+                  {formateDate(item.startingDate)} -{" "}
+                  {formateDate(item.endingDate)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {/* --- Experience Section --- */}
-      <div className="relative">
-        <h3 className="text-[22px] leading-[32px] font-semibold text-headingColor mb-6 flex items-center gap-2">
-          💼 <span>Experience</span>
-        </h3>
-
-        <ul className="grid sm:grid-cols-2 gap-6">
-          {experiences?.map((item, index) => (
-            <li
-              key={index}
-              className="p-5 rounded-2xl bg-gradient-to-br from-[#0f172a]/70 to-[#1e293b]/70 border border-white/10 backdrop-blur-md hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)] transition-all duration-300"
-            >
-              <span className="text-cyan-400 text-[15px] font-semibold block mb-2">
-                {formateDate(item.startingDate)} —{" "}
-                {formateDate(item.endingDate)}
-              </span>
-              <p className="text-[17px] font-semibold text-white leading-6">
-                {item.position}
-              </p>
-              <p className="text-[15px] text-gray-400 leading-5 italic">
-                {item.company}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* ---------- Experience Section ---------- */}
+      {experiences?.length > 0 && (
+        <div className="bg-white shadow-sm border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow duration-300">
+          <h3 className="text-[20px] font-semibold text-headingColor mb-4">
+            Experience
+          </h3>
+          <ul className="grid sm:grid-cols-2 gap-5">
+            {experiences.map((item, index) => (
+              <li
+                key={index}
+                className="p-5 rounded-xl bg-gradient-to-br from-[#fff9ea] to-[#fff3c4] border border-yellow-100 shadow-sm hover:shadow-md transition-all duration-300"
+              >
+                <div className="flex flex-col h-full justify-between">
+                  <div>
+                    <p className="text-[16px] font-semibold text-headingColor">
+                      {item.position}
+                    </p>
+                    <p className="text-[14px] text-gray-600">{item.hospital}</p>
+                  </div>
+                  <span className="text-yellowColor text-[14px] font-medium mt-3">
+                    {formateDate(item.startingDate)} -{" "}
+                    {formateDate(item.endingDate)}
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

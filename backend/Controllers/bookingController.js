@@ -5,13 +5,11 @@ import Stripe from "stripe";
 
 export const getCheckoutSession = async (req, res) => {
   try {
-    // get currently booked mentor
     const mentor = await Mentor.findById(req.params.mentorId);
     const user = await User.findById(req.userId);
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-    //creat stripe checkout session
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       mode: "payment",
@@ -23,7 +21,7 @@ export const getCheckoutSession = async (req, res) => {
         {
           price_data: {
             currency: "bdt",
-            unit_amount: mentor.ticketPrice * 100,
+            unit_amount: mentor.hourlyFee * 100,
             product_data: {
               name: mentor.name,
               description: mentor.bio,
@@ -34,11 +32,10 @@ export const getCheckoutSession = async (req, res) => {
         },
       ],
     });
-    //create new booking
     const booking = new Booking({
       mentor: mentor._id,
       user: user._id,
-      ticketPrice: mentor.ticketPrice,
+      ticketPrice: mentor.hourlyFee,
       session: session.id,
     });
     await booking.save();

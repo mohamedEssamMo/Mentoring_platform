@@ -52,7 +52,7 @@ const Mentors = () => {
       </section>
 
       <section>
-        <div className="container relative z-10 py-14">
+        <div className="container">
           {loading && <Loader />}
           {error && <Error />}
 
@@ -63,21 +63,13 @@ const Mentors = () => {
               ))}
             </div>
           )}
-          {/* overlay: full-size gradient behind content */}
-          <div
-            className="absolute inset-0 -z-10 pointer-events-none
-                  bg-primaryColor
-                  dark:to-gray-900
-                  w-full h-full mx-auto
-                  rounded-s skew-y-3"
-          ></div>
         </div>
       </section>
 
       <section>
         <div className="container">
           <div className="xl:w-[470px] mx-auto">
-            <h2 className="heading text-center">What our patient say</h2>
+            <h2 className="heading text-center">What our mentee say</h2>
             <p className="text__para text-center">
               World-class care for everyone. Our health System offers unmatched,
               expert health care.

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Mentor from "../models/MentorSchema.js";
 import Booking from "../models/BookingSchema.js";
 
@@ -9,13 +10,11 @@ export const updateMentor = async (req, res) => {
       { $set: req.body },
       { new: true }
     );
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Successfully updated",
-        data: updatedMentor,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Successfully updated",
+      data: updatedMentor,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to update" });
   }
@@ -29,19 +28,15 @@ export const deleteMentor = async (req, res) => {
       { $set: req.body },
       { new: true }
     );
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Successfully deleted",
-        data: deletedMentor,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Successfully deleted",
+      data: deletedMentor,
+    });
   } catch (error) {
     res.status(500).json({ success: false, message: "Failed to deleted" });
   }
 };
-
-import mongoose from "mongoose";
 
 export const getSingleMentor = async (req, res) => {
   const id = req.params.id;
@@ -53,7 +48,15 @@ export const getSingleMentor = async (req, res) => {
   }
 
   try {
-    const mentor = await Mentor.findById(id).select("-password"); // remove populate
+    const mentor = await Mentor.findById(id)
+      .select("-password")
+      .populate({
+        path: "reviews",
+        populate: {
+          path: "user",
+          select: "name photo",
+        },
+      });
     if (!mentor) {
       return res
         .status(404)
@@ -69,8 +72,6 @@ export const getSingleMentor = async (req, res) => {
   }
 };
 
-
-
 export const getAllMentor = async (req, res) => {
   try {
     const { query } = req.query;
@@ -81,11 +82,13 @@ export const getAllMentor = async (req, res) => {
         isApproved: "approved",
         $or: [
           { name: { $regex: query, $options: "i" } },
-          { specialization: { $regex: query, $options: "i" } }
-        ]
+          { specialization: { $regex: query, $options: "i" } },
+        ],
       }).select("-password");
     } else {
-      mentors = await Mentor.find({ isApproved: "approved" }).select("-password");
+      mentors = await Mentor.find({ isApproved: "approved" }).select(
+        "-password"
+      );
     }
 
     res.status(200).json({
@@ -138,13 +141,11 @@ export const getMyAppointments = async (req, res) => {
       "-password"
     );
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Appointments are getting",
-        data: mentors,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Appointments are getting",
+      data: mentors,
+    });
   } catch (err) {
     return res
       .status(500)
