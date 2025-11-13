@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
   {
-    doctor: {
+    mentor: {
       type: mongoose.Types.ObjectId,
-      ref: "Doctor",
+      ref: "Mentor",
       required: true,
     },
     user: {
@@ -28,7 +28,7 @@ const bookingSchema = new mongoose.Schema(
 );
 bookingSchema.pre(/^find/, function (next) {
   this.populate("user").populate({
-    path: "doctor",
+    path: "mentor",
     select: "name",
   });
 

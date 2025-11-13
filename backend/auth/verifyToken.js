@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import Doctor from "../models/DoctorSchema.js";
+import Mentor from "../models/MentorSchema.js";
 import User from "../models/UserSchema.js";
 
 export const authenticate = async (req, res, next) => {
@@ -38,15 +38,15 @@ export const restrict = (roles) => async (req, res, next) => {
 
   let user;
 
-  const patient = await User.findById(userId);
-  const doctor = await Doctor.findById(userId);
+  const mentee = await User.findById(userId);
+  const mentor = await Mentor.findById(userId);
 
-  if (patient) {
-    user = patient;
+  if (mentee) {
+    user = mentee;
   }
 
-  if (doctor) {
-    user = doctor;
+  if (mentor) {
+    user = mentor;
   }
 
 

@@ -1,5 +1,5 @@
 import Review from "../Models/ReviewSchema.js";
-import Doctor from "../Models/DoctorSchema.js";
+import Mentor from "../Models/MentorSchema.js";
 
 // get all reviews
 export const getAllReviews = async (req, res) => {
@@ -16,7 +16,7 @@ export const getAllReviews = async (req, res) => {
 
 // create review
 export const createReview = async (req, res) => {
-  if (!req.body.doctor) req.body.doctor = req.params.doctorId;
+  if (!req.body.mentor) req.body.mentor = req.params.mentorId;
   if (!req.body.user) req.body.user = req.userId;
 
   const newReview = new Review(req.body);
@@ -24,8 +24,8 @@ export const createReview = async (req, res) => {
   try {
     const savedReview = await newReview.save();
 
-    // update the doctor object, pushing the new review's ID to the reviews array
-    await Doctor.findByIdAndUpdate(req.body.doctor, {
+    // update the mentor object, pushing the new review's ID to the reviews array
+    await Mentor.findByIdAndUpdate(req.body.mentor, {
       $push: { reviews: savedReview._id },
     });
 

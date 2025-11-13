@@ -5,15 +5,15 @@ import icon03 from "../assets/images/icon03.png";
 import featureImg from "../assets/images/feature-img.png";
 import faqImg from "../assets/images/faq-img.png";
 import videoIcon from "../assets/images/video-icon.png";
-import avatarIcon from "../assets/images/avatar-icon.png";
 
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import About from "../components/About/About.jsx";
 import ServiceList from "../components/Services/ServiceList";
-import DoctorList from "../components/Doctors/DoctorList";
+import MentorList from "../components/Mentors/MentorList3.jsx";
 import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
+import Features from "../components/Features.jsx";
 
 const Home = () => {
   return (
@@ -31,8 +31,7 @@ const Home = () => {
             <p className="text__para mb-8 text-gray-600 text-lg leading-relaxed">
               Learn with top educators and mentors across various fields. Build
               your skills, connect with professionals, and grow your potential
-              anytime, anywhere.
-              Own your future learning new skills online with
+              anytime, anywhere. Own your future learning new skills online with
               expert mentors and top educators.
             </p>
 
@@ -95,7 +94,7 @@ const Home = () => {
               </Link>
             </div>
 
-            <div className="py-[30px] px-5 text-center">
+            <div className="py-[30px] px-5 text-center translate-y-12">
               <img src={icon02} alt="" className="mx-auto" />
               <h2 className="text-[26px] font-[700] text-headingColor mt-[30px]">
                 Join a Session
@@ -150,82 +149,79 @@ const Home = () => {
       </section>
 
       {/* Virtual Mentorship Feature */}
-      <section>
-        <div className="container flex flex-col lg:flex-row items-center justify-between">
-          <div className="xl:w-[670px]">
-            <h2 className="heading">
-              Learn anytime, anywhere with live mentorship
+      <Features />
+
+      {/* Mentors Section */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+        <div className="container relative z-10">
+          {/* Header */}
+          <div className="xl:w-[470px] mx-auto text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4">
+              Meet Our Mentors
             </h2>
-            <ul className="pl-4">
-              <li className="text__para">1. Connect instantly with mentors.</li>
-              <li className="text__para">
-                2. Book lessons that fit your schedule.
-              </li>
-              <li className="text__para">
-                3. Get feedback and grow faster with expert guidance.
-              </li>
-            </ul>
-            <Link to="/">
-              <button className="btn">Learn More</button>
+            <p className="text-base text-gray-900 dark:text-gray-300 leading-7 font-semibold">
+              Learn from top educators and experienced professionals ready to
+              guide you toward your career goals.
+            </p>
+          </div>
+
+          {/* Mentor List */}
+          <div className="relative z-10">
+            <MentorList />
+          </div>
+
+          {/* Call-to-Action Button */}
+          <div className="flex justify-center mt-12">
+            <Link to="/mentors">
+              <button className="btn bg-gray-500 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+                Explore Mentors
+              </button>
             </Link>
           </div>
 
-          <div className="relative z-10 xl:w-[770px] flex justify-end mt-[50px] lg:mt-0">
-            <img src={featureImg} className="w-3/4" alt="" />
-            <div className="w-[150px] lg:w-[248px] bg-white absolute bottom-[50px] left-0 md:bottom-[100px] md:left-5 z-20 p-3 rounded-[10px]">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <p className="text-[14px] font-[600] text-headingColor">
-                    Tue, 24
-                  </p>
-                  <p className="text-[14px] font-[400] text-textColor">
-                    10:00AM
-                  </p>
-                </div>
-                <span className="w-[34px] h-[34px] flex items-center justify-center bg-yellowColor rounded">
-                  <img src={videoIcon} alt="" />
-                </span>
-              </div>
-              <div className="w-[96px] bg-[#CCF0F3] py-1 px-2 text-[12px] text-irisBlueColor font-[500] mt-4 rounded-full">
-                Live Session
-              </div>
-              <div className="flex items-center gap-[10px] mt-[18px]">
-                <img src={avatarIcon} alt="" />
-                <h4 className="text-[16px] font-[700] text-headingColor">
-                  Sarah Johnson
-                </h4>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Mentors Section */}
-      <section>
-        <div className="container">
-          <div className="xl:w-[470px] mx-auto text-center">
-            <h2 className="heading">Meet Our Mentors</h2>
-            <p className="text__para">
-              Learn from the best educators and industry experts who are ready
-              to guide you.
-            </p>
-          </div>
-          <DoctorList />
+          {/* overlay: full-size gradient behind content */}
+          <div
+            className="absolute inset-0 -z-10 pointer-events-none
+                  bg-primaryColor
+                  dark:to-gray-900
+                  w-[98%] h-[90%] mx-auto top-[10%]
+                  rounded-s skew-y-3"
+          ></div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section>
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
         <div className="container">
-          <div className="flex justify-between gap-[50px] lg:gap-0">
-            <div className="w-1/2 hidden md:block">
-              <img src={faqImg} alt="" />
+          <div className="flex flex-col md:flex-row justify-between items-center gap-10 lg:gap-16">
+            {/* Left Image */}
+            <div className="w-full md:w-1/2 hidden md:block">
+              <img
+                src={faqImg}
+                alt="Students asking mentorship questions"
+                className="rounded-2xl shadow-lg w-full object-cover"
+              />
             </div>
+
+            {/* Right FAQ Content */}
             <div className="w-full md:w-1/2">
-              <h2 className="heading">Common questions by learners</h2>
-              <FaqList />
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-6 leading-snug">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-base text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                We’ve compiled some of the most common questions learners ask
+                about mentorship sessions, scheduling, and becoming part of our
+                community.
+              </p>
+
+              <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 border border-gray-100 dark:border-gray-700">
+                <FaqList />
+              </div>
             </div>
           </div>
+
+          {/* Optional soft gradient overlay for style */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white dark:to-gray-900 opacity-70 -z-10"></div>
         </div>
       </section>
 

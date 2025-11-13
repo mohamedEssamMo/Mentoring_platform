@@ -1,6 +1,6 @@
 import User from "../models/UserSchema.js";
 import Booking from "../models/BookingSchema.js"
-import Doctor from "../models/DoctorSchema.js"
+import Mentor from "../models/MentorSchema.js"
 
 export const updateUser = async (req, res) => {
   const id = req.params.id;
@@ -64,13 +64,13 @@ export const getMyAppointments = async (req, res) => {
     const userId = req.userId;
     const bookings = await Booking.find({ user: userId });
 
-    const doctorIds = bookings.map(el => el.doctor);
-    const doctors = await Doctor.find({ _id: { $in: doctorIds } }).select("-password");
+    const mentorIds = bookings.map(el => el.mentor);
+    const mentors = await Mentor.find({ _id: { $in: mentorIds } }).select("-password");
 
     res.status(200).json({
       success: true,
       message: "Appointments retrieved successfully",
-      data: doctors,
+      data: mentors,
     });
   } catch (err) {
     res.status(500).json({ success: false, message: `Something went wrong: ${err}` });

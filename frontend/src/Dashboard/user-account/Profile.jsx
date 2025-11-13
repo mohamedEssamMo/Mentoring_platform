@@ -6,16 +6,25 @@ import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader";
 
 const Profile = ({ user }) => {
+  const areaOfExpertiseOptions = [
+    "Not Specified",
+    "Software Engineering",
+    "Marketing",
+    "Design",
+    "Finance",
+    "Product Management",
+    "Human Resources",
+  ];
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    password: "",
     photo: null,
     gender: "",
-    bloodType: "",
+    jobTitle: "",
+    areaOfExpertise: "",
   });
 
   const navigate = useNavigate();
@@ -27,7 +36,8 @@ const Profile = ({ user }) => {
         email: user.email || "",
         photo: user.photo || "",
         gender: user.gender || "",
-        bloodType: user.bloodType || "",
+        jobTitle: user.jobTitle || "",
+        areaOfExpertise: user.areaOfExpertise || "",
       });
     }
   }, [user]);
@@ -84,17 +94,19 @@ const Profile = ({ user }) => {
   return (
     <form
       onSubmit={submitHandler}
-      className="max-w-lg mx-auto bg-white p-6 rounded-xl shadow-md"
+      className="max-w-lg mx-auto bg-white p-8 rounded-2xl shadow-xl border border-gray-100"
     >
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Profile</h2>
+
       {/* Name */}
       <div className="mb-5">
         <input
           type="text"
-          placeholder="Enter Your Full Name"
+          placeholder="Full Name"
           name="name"
           value={formData.name}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] leading-7 text-headingColor placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryColor"
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-gray-800 text-[16px] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
           required
         />
       </div>
@@ -103,62 +115,70 @@ const Profile = ({ user }) => {
       <div className="mb-5">
         <input
           type="email"
-          placeholder="Enter Your Email"
+          placeholder="Email Address"
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] leading-7 text-headingColor placeholder:text-gray-400 bg-gray-100 cursor-not-allowed"
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-gray-600 text-[16px] bg-gray-100 cursor-not-allowed placeholder-gray-400"
           readOnly
           aria-readonly
         />
       </div>
 
-      {/* Password */}
+
+      {/* areaOfExpertise */}
       <div className="mb-5">
-        <input
-          type="password"
-          placeholder="Enter Your Password"
-          name="password"
-          value={formData.password}
+        <label className="block text-gray-700 font-semibold mb-2 text-[15px]">
+          Specialization
+        </label>
+        <select
+          name="areaOfExpertise"
+          value={formData.areaOfExpertise}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] leading-7 text-headingColor placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryColor"
-        />
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-gray-800 text-[15px] font-medium focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
+        >
+          {areaOfExpertiseOptions.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Blood Type */}
+      {/* Job Title */}
       <div className="mb-5">
         <input
           type="text"
-          placeholder="Blood Type"
-          name="bloodType"
-          value={formData.bloodType}
+          placeholder="Job Title"
+          name="jobTitle"
+          value={formData.jobTitle}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md text-[16px] leading-7 text-headingColor placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryColor"
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-gray-800 text-[16px] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
           required
         />
       </div>
 
       {/* Gender */}
       <div className="mb-5">
-        <label className="block text-headingColor font-semibold text-[16px] mb-2">
+        <label className="block text-gray-700 font-semibold mb-2 text-[15px]">
           Gender
         </label>
         <select
           name="gender"
           value={formData.gender}
           onChange={handleInputChange}
-          className="w-full px-4 py-3 border border-gray-300 rounded-md text-[15px] text-textColor font-semibold focus:outline-none focus:ring-2 focus:ring-primaryColor"
+          className="w-full px-5 py-3 border border-gray-300 rounded-xl text-gray-800 text-[15px] font-medium focus:outline-none focus:ring-2 focus:ring-primaryColor transition"
         >
-          <option value="">Select</option>
+          <option value="">Select Gender</option>
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
       </div>
 
       {/* Avatar Upload */}
-      <div className="mb-5 flex items-center gap-4">
+      <div className="mb-6 flex items-center gap-4">
         {formData.photo && (
-          <figure className="w-[70px] h-[70px] rounded-full overflow-hidden border-2 border-primaryColor flex-shrink-0 shadow-sm">
+          <figure className="w-[80px] h-[80px] rounded-full overflow-hidden border-2 border-primaryColor shadow-sm flex-shrink-0">
             <img
               src={formData.photo}
               alt="profilePic"
@@ -178,7 +198,7 @@ const Profile = ({ user }) => {
           />
           <label
             htmlFor="customFile"
-            className="absolute top-0 left-0 w-full h-full flex items-center justify-center bg-[#0066ff15] text-primaryColor font-semibold rounded-lg cursor-pointer border border-primaryColor hover:bg-primaryColor hover:text-white transition-colors duration-200"
+            className="absolute top-0 left-0 w-full h-full flex items-center justify-center border-2 border-primaryColor rounded-xl text-primaryColor font-semibold bg-white hover:bg-primaryColor hover:text-white transition-colors duration-200 cursor-pointer"
           >
             {selectedFile ? selectedFile.name : "Upload Photo"}
           </label>
@@ -186,19 +206,13 @@ const Profile = ({ user }) => {
       </div>
 
       {/* Submit Button */}
-      <div className="mt-7">
-        <button
-          disabled={loading}
-          type="submit"
-          className="w-full bg-primaryColor text-white text-[18px] leading-[30px] font-semibold rounded-lg px-4 py-3 hover:bg-blue-700 transition-colors duration-200 disabled:opacity-70"
-        >
-          {loading ? (
-            <HashLoader size={25} color="#ffffff" />
-          ) : (
-            "Update Profile"
-          )}
-        </button>
-      </div>
+      <button
+        disabled={loading}
+        type="submit"
+        className="w-full bg-primaryColor text-white text-[18px] font-semibold rounded-xl py-3 hover:bg-blue-700 transition-colors duration-200 disabled:opacity-70 flex justify-center items-center"
+      >
+        {loading ? <HashLoader size={25} color="#ffffff" /> : "Update Profile"}
+      </button>
     </form>
   );
 };

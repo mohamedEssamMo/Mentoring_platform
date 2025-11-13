@@ -1,105 +1,105 @@
-import {useContext, useState} from "react";
+import { useContext, useState } from "react";
 import { authContext } from "../../context/AuthContext";
-import userImg from "../../assets/images/doctor-img01.png";
 import MyBookings from "./MyBookings";
 import Profile from "./Profile";
 import useGetProfile from "../../hooks/useFetchData";
 import { BASE_URL } from "../../config";
 import Loading from "../../components/Loader/Loading";
-import Error from "../../components/Error/Error"
-
+import Error from "../../components/Error/Error";
 
 const MyAccount = () => {
   const { dispatch } = useContext(authContext);
   const [tab, setTab] = useState("bookings");
   const {
-    data:userData,
+    data: userData,
     loading,
     error,
   } = useGetProfile(`${BASE_URL}/users/profile/me`);
 
-
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-  }
+  };
 
   return (
-    <section>
+    <section className="bg-gray-50 min-h-screen py-10 mt-16">
       <div className="max-w-[1170px] px-5 mx-auto">
         {loading && !error && <Loading />}
-        {error && !loading && <Error errMassage={error}/>}
+        {error && !loading && <Error errMassage={error} />}
 
-
-        {
-          !loading && !error && (
+        {!loading && !error && (
           <div className="grid md:grid-cols-3 gap-10">
-            <div className="pb-[50px] px-[30px] rounded-md">
-              <div className="flex items-center justify-center">
-                <figure className="w-[100px] h-[100px] rounded-full border-2 border-solid border-primaryColor">
-                  <img
-                    src={userData.photo}
-                    alt=""
-                    className="w-full h-full rounded-full"
-                  />
-                </figure>
-              </div>
+            {/* Left Panel */}
+            <div className="bg-white rounded-2xl p-6 shadow-md flex flex-col items-center">
+              <figure className="w-[120px] h-[120px] rounded-full border-2 border-primaryColor overflow-hidden shadow-sm">
+                <img
+                  src={userData.photo || "/default-user.png"}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
+              </figure>
 
               <div className="text-center mt-4">
-                <h3 className="text-[18px] leading-[30px] text-headingColor font-bold">
+                <h3 className="text-xl font-bold text-gray-800">
                   {userData.name}
                 </h3>
-                <p className="text-textColor text-[15px] leading-6 font-medium">
-                  {userData.email}
+                <p className="text-gray-500 text-sm mt-1">{userData.email}</p>
+                <p className="text-gray-500 text-sm mt-1">
+                  Specialization:{" "}
+                  <span className="text-gray-800 font-semibold">
+                    {userData.areaOfExpertise}
+                  </span>
                 </p>
-                <p className="text-textColor text-[15px] leading-6 font-medium">
-                  Blood Type:
-                  <span className="ml-2 text-headingColor text-[22px] leading-8">
-                    {userData.bloodType}
+                <p className="text-gray-500 text-sm mt-1">
+                  Job Title:{" "}
+                  <span className="text-gray-800 font-semibold">
+                    {userData.jobTitle}
                   </span>
                 </p>
               </div>
 
-              <div className="mt-[50px] md:mt-[100px]">
-                <button onClick={handleLogout} className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md text-white">
+              <div className="mt-8 w-full flex flex-col gap-3">
+                <button
+                  onClick={handleLogout}
+                  className="w-full bg-gray-900 p-3 rounded-lg text-white text-base font-medium hover:bg-gray-800 transition-colors"
+                >
                   Logout
                 </button>
-                <button className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white">
-                  Delete account
-                </button>
               </div>
-
             </div>
 
-            <div className="md:col-span-2 md:px-[30px]">
-              <div>
+            {/* Right Panel */}
+            <div className="md:col-span-2">
+              <div className="flex gap-4 border-b border-gray-200">
                 <button
                   onClick={() => setTab("bookings")}
-                  className={`${
-                    tab === "bookings" && "bg-primaryColor text-white font-normal"
-                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                  className={`px-5 py-2 rounded-t-lg font-semibold transition-colors ${
+                    tab === "bookings"
+                      ? "bg-primaryColor text-white shadow-md"
+                      : "bg-white text-gray-800 hover:bg-gray-100"
+                  }`}
                 >
                   My Bookings
                 </button>
 
                 <button
                   onClick={() => setTab("settings")}
-                  className={`${
-                    tab === "settings" && "bg-primaryColor text-white font-normal"
-                  } py-2 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                  className={`px-5 py-2 rounded-t-lg font-semibold transition-colors ${
+                    tab === "settings"
+                      ? "bg-primaryColor text-white shadow-md"
+                      : "bg-white text-gray-800 hover:bg-gray-100"
+                  }`}
                 >
                   Profile Settings
                 </button>
               </div>
 
-              <div className="mt-10">
+              <div className="mt-6 bg-white rounded-2xl p-6 shadow-md">
                 {tab === "bookings" && <MyBookings />}
                 {tab === "settings" && <Profile user={userData} />}
               </div>
             </div>
           </div>
-          )
-        }
-        
+        )}
       </div>
     </section>
   );

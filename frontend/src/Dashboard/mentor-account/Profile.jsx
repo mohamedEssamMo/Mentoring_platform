@@ -1,0 +1,371 @@
+import { useState, useEffect } from "react";
+import { AiOutlineDelete } from "react-icons/ai";
+import uploadImageToCloudinary from "../../utils/uploadCloudinary";
+import { BASE_URL, token } from "../../config";
+import { toast } from "react-toastify";
+
+const Profile = ({ mentorData }) => {
+  const areaOfExpertiseOptions = [
+    "Not Specified",
+    "Software Engineering",
+    "Marketing",
+    "Design",
+    "Finance",
+    "Product Management",
+    "Human Resources",
+  ];
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    bio: "",
+    gender: "",
+    areaOfExpertise: "",
+    jobTitle: "",
+    hourlyFee: 0,
+    qualifications: [],
+    experiences: [],
+    timeSlots: [],
+    links: [],
+    about: "",
+    photo: null,
+  });
+
+  const [previewURL, setPreviewURL] = useState("");
+
+  useEffect(() => {
+    if (!mentorData) return;
+    setFormData({
+      name: mentorData.name || "",
+      email: mentorData.email || "",
+      bio: mentorData.bio || "",
+      gender: mentorData.gender || "",
+      areaOfExpertise: mentorData.areaOfExpertise || "",
+      jobTitle: mentorData.jobTitle || "",
+      hourlyFee: mentorData.hourlyFee || 0,
+      qualifications: mentorData.qualifications || [],
+      experiences: mentorData.experiences || [],
+      timeSlots: mentorData.timeSlots || [],
+      links: mentorData.links || [],
+      about: mentorData.about || "",
+      photo: mentorData.photo || null,
+    });
+    setPreviewURL(mentorData.photo || "");
+  }, [mentorData]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleFileInputChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const data = await uploadImageToCloudinary(file);
+      setPreviewURL(data.url);
+      setFormData((prev) => ({ ...prev, photo: data.url }));
+    } catch (err) {
+      toast.error("Failed to upload image");
+    }
+  };
+
+  const updateProfileHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch(`${BASE_URL}/mentors/${mentorData._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message);
+      toast.success(result.message);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const addItem = (key, newItem) => {
+    setFormData((prev) => ({ ...prev, [key]: [...prev[key], newItem] }));
+  };
+
+  const updateItem = (key, index, fieldName, value) => {
+    setFormData((prev) => {
+      const updated = [...prev[key]];
+      updated[index][fieldName] = value;
+      return { ...prev, [key]: updated };
+    });
+  };
+
+  const deleteItem = (key, index) => {
+    setFormData((prev) => ({
+      ...prev,
+      [key]: prev[key].filter((_, i) => i !== index),
+    }));
+  };
+
+  return (
+    <div className="bg-white dark:bg-[#11112b] rounded-3xl shadow-2xl p-8 md:p-12 transition-all duration-500">
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
+        Profile Information
+      </h2>
+
+      <form onSubmit={updateProfileHandler} className="space-y-8">
+        {/* Basic Info */}
+        <div className="grid sm:grid-cols-2 gap-8">
+          {[
+            {
+              label: "Name*",
+              name: "name",
+              type: "text",
+              placeholder: "Full Name",
+            },
+            {
+              label: "Email*",
+              name: "email",
+              type: "email",
+              placeholder: "Email",
+              disabled: true,
+            },
+            {
+              label: "Bio",
+              name: "bio",
+              type: "text",
+              placeholder: "Short bio",
+            },
+            {
+              label: "Gender",
+              name: "gender",
+              type: "select",
+              options: ["", "male", "female"],
+            },
+            {
+              label: "Specialization",
+              name: "areaOfExpertise",
+              type: "select",
+              options: areaOfExpertiseOptions,
+            },
+            {
+              label: "Job Title",
+              name: "jobTitle",
+              type: "text",
+              placeholder: "Job Title",
+            },
+            {
+              label: "Hourly Fee",
+              name: "hourlyFee",
+              type: "number",
+              placeholder: "Hourly Rate",
+            },
+          ].map((field) => (
+            <div key={field.name}>
+              <label className="form_label font-medium text-gray-700 dark:text-gray-200 mb-2 block">
+                {field.label}
+              </label>
+              {field.type === "select" ? (
+                <select
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleInputChange}
+                  disabled={field.disabled || false}
+                  className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
+                >
+                  {field.options.map((option, idx) => (
+                    <option key={idx} value={option}>
+                      {option || "Select"}
+                    </option>
+                  ))}
+                </select>
+              ) : (
+                <input
+                  type={field.type}
+                  name={field.name}
+                  value={formData[field.name]}
+                  onChange={handleInputChange}
+                  placeholder={field.placeholder}
+                  disabled={field.disabled || false}
+                  className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
+                />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Array Sections */}
+        {[
+          {
+            key: "qualifications",
+            label: "Qualifications",
+            fields: [
+              { name: "startingDate", type: "date", label: "Start Date" },
+              { name: "endingDate", type: "date", label: "End Date" },
+              { name: "degree", type: "text", label: "Degree" },
+              { name: "university", type: "text", label: "University" },
+            ],
+            addItemFunc: () =>
+              addItem("qualifications", {
+                startingDate: "",
+                endingDate: "",
+                degree: "",
+                university: "",
+              }),
+          },
+          {
+            key: "experiences",
+            label: "Experiences",
+            fields: [
+              { name: "startingDate", type: "date", label: "Start Date" },
+              { name: "endingDate", type: "date", label: "End Date" },
+              { name: "position", type: "text", label: "Position" },
+              { name: "company", type: "text", label: "Company" },
+            ],
+            addItemFunc: () =>
+              addItem("experiences", {
+                startingDate: "",
+                endingDate: "",
+                position: "",
+                company: "",
+              }),
+          },
+          {
+            key: "timeSlots",
+            label: "Time Slots",
+            fields: [
+              { name: "day", type: "text", label: "Day" },
+              { name: "startingTime", type: "time", label: "Start Time" },
+              { name: "endingTime", type: "time", label: "End Time" },
+            ],
+            addItemFunc: () =>
+              addItem("timeSlots", {
+                day: "",
+                startingTime: "",
+                endingTime: "",
+              }),
+          },
+          {
+            key: "links",
+            label: "Links",
+            fields: [
+              { name: "name", type: "text", label: "Name" },
+              { name: "link", type: "text", label: "Link" },
+            ],
+            addItemFunc: () => addItem("links", { name: "", link: "" }),
+          },
+        ].map(({ key, label, fields, addItemFunc }) => (
+          <div
+            key={key}
+            className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl shadow-md"
+          >
+            <p className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+              {label}
+            </p>
+            {formData[key]?.map((item, index) => (
+              <div
+                key={index}
+                className="mb-5 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-inner border border-gray-200 dark:border-gray-700"
+              >
+                <div className={`grid grid-cols-${fields.length} gap-4`}>
+                  {fields.map((field) => (
+                    <div key={field.name}>
+                      <label className="form_label text-gray-700 dark:text-gray-200 mb-1 block">
+                        {field.label}
+                      </label>
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={item[field.name]}
+                        onChange={(e) =>
+                          updateItem(key, index, field.name, e.target.value)
+                        }
+                        className="form_input rounded-lg border border-gray-300 dark:border-gray-600 p-2 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
+                      />
+                    </div>
+                  ))}
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteItem(key, index);
+                  }}
+                  className="flex items-center justify-center mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl transition-all shadow-sm"
+                >
+                  <AiOutlineDelete size={20} />
+                </button>
+              </div>
+            ))}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addItemFunc();
+              }}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 rounded-xl shadow-md transition-all font-medium"
+            >
+              + Add {label}
+            </button>
+          </div>
+        ))}
+
+        {/* About */}
+        <div>
+          <label className="form_label font-medium text-gray-700 dark:text-gray-200 mb-2 block">
+            About
+          </label>
+          <textarea
+            name="about"
+            rows={5}
+            value={formData.about}
+            onChange={handleInputChange}
+            placeholder="Write about yourself..."
+            className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
+          />
+        </div>
+
+        {/* Photo Upload */}
+        <div className="flex items-center gap-6">
+          {formData.photo && (
+            <figure className="w-[80px] h-[80px] rounded-full border-4 border-indigo-500 overflow-hidden shadow-lg">
+              <img
+                src={previewURL}
+                alt="Mentor"
+                className="w-full h-full object-cover"
+              />
+            </figure>
+          )}
+          <div className="relative">
+            <input
+              type="file"
+              id="customFile"
+              name="photo"
+              onChange={handleFileInputChange}
+              accept=".jpg,.png"
+              className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+            />
+            <label
+              htmlFor="customFile"
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-2 px-6 rounded-xl cursor-pointer shadow-md transition-all"
+            >
+              Upload Photo
+            </label>
+          </div>
+        </div>
+
+        {/* Submit */}
+        <div className="flex justify-end pt-4">
+          <button
+            type="submit"
+            className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 transition-all text-white font-semibold py-3 px-10 rounded-2xl shadow-xl"
+          >
+            Update Profile
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default Profile;

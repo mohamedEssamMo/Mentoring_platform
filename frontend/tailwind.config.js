@@ -9,7 +9,7 @@ export default {
         purpleColor: "#9771FF",
         irisBlueColor: "#01B5C5",
         headingColor: "#181A1E",
-        textColor: "#4E545F",
+        textColor: "#404550",
         txtColor: "#fff",
       },
 

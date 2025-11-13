@@ -3,12 +3,12 @@ import { NavLink, Link } from "react-router-dom";
 import { BiMenu, BiX } from "react-icons/bi";
 import logo from "../../assets/images/logo.png";
 import { authContext } from "../../context/AuthContext";
-import Avatar from "../../assets/images/825.jpg";
+import Avatar from "../../assets/images/avatar-icon.png";
 
 const navLinks = [
   { path: "/home", display: "Home" },
-  { path: "/doctors", display: "Find Mentor" },
-  { path: "/doctors", display: "Group Session" },
+  { path: "/mentors", display: "Find Mentor" },
+  { path: "/Group-Session", display: "Group Session" },
   { path: "/services", display: "Services" },
   { path: "/contact", display: "Contact" },
 ];
@@ -18,7 +18,7 @@ const Header = () => {
   const { user, role, token } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Sticky header
+  // Sticky header with shadow
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 80) {
@@ -38,15 +38,15 @@ const Header = () => {
       ref={headerRef}
       className="fixed top-0 left-0 w-full z-50 transition-all duration-300"
     >
-      <div className="container mx-auto px-4 py-4 flex items-center justify-around">
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between md:justify-around">
         {/* Logo */}
-        <Link to={"/"}>
+        <Link to="/">
           <img src={logo} alt="Logo" className="w-44 md:w-52" />
         </Link>
 
         {/* Navigation */}
         <nav
-          className={`md:flex items-center gap-8 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 md:opacity-100 ${
+          className={`md:flex items-center gap-8 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${
             menuOpen
               ? "opacity-100 h-auto py-4 shadow-md md:shadow-none"
               : "opacity-0 h-0 overflow-hidden md:opacity-100 md:h-auto md:py-0"
@@ -54,7 +54,7 @@ const Header = () => {
         >
           <ul className="flex flex-col md:flex-row items-center gap-6 md:gap-8 px-4 md:px-0">
             {navLinks.map((link, index) => (
-              <li key={index}>
+              <li key={index} className="group relative">
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
@@ -80,7 +80,7 @@ const Header = () => {
           {token && user ? (
             <Link
               to={`${
-                role === "doctor" ? "/doctors/profile/me" : "/users/profile/me"
+                role === "mentor" ? "/mentors/profile/me" : "/users/profile/me"
               }`}
             >
               <figure className="w-12 h-12 rounded-full overflow-hidden cursor-pointer ring-2 ring-primaryColor hover:ring-4 transition-all duration-300 transform hover:scale-105">
@@ -100,15 +100,23 @@ const Header = () => {
           )}
 
           {/* Mobile Menu Toggle */}
-          <span className="md:hidden" onClick={toggleMenu}>
+          <span className="md:hidden text-gray-700" onClick={toggleMenu}>
             {menuOpen ? (
-              <BiX className="w-7 h-7 cursor-pointer text-gray-700" />
+              <BiX className="w-7 h-7 cursor-pointer" />
             ) : (
-              <BiMenu className="w-7 h-7 cursor-pointer text-gray-700" />
+              <BiMenu className="w-7 h-7 cursor-pointer" />
             )}
           </span>
         </div>
       </div>
+
+      {/* Optional Mobile Menu Overlay */}
+      {menuOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 md:hidden"
+          onClick={toggleMenu}
+        ></div>
+      )}
     </header>
   );
 };

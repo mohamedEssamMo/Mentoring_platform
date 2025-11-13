@@ -1,6 +1,6 @@
 import useFetchData from "../../hooks/useFetchData";
 import { BASE_URL } from "../../config";
-import DoctorCard from "../../components/Doctors/DoctorCard";
+import MentorCard from "../../components/Mentors/MentorCard";
 import Loading from "../../components/Loader/Loading";
 import Error from "../../components/Error/Error";
 
@@ -17,13 +17,13 @@ const MyBookings = () => {
 
       {!loading && !error &&  ( <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {
-          appontments.map(doctor=> <DoctorCard 
-            key={doctor._id} doctor={doctor} />)
+          appontments.map(mentor=> <MentorCard 
+            key={mentor._id} mentor={mentor} />)
         }
 
       </div>)}
         {!loading && !error && appontments.length === 0 && 
-        <h2 className="mt-5 text-center  leading-7 text-[20px] font-semibold text-primaryColor">You did not book any doctor yet!</h2>}
+        <h2 className="mt-5 text-center  leading-7 text-[20px] font-semibold text-primaryColor">You did not book any mentor yet!</h2>}
     </div>
   )
 }

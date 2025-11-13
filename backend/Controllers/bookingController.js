@@ -1,12 +1,12 @@
 import User from "../models/UserSchema.js";
-import Doctor from "../models/DoctorSchema.js";
+import Mentor from "../models/MentorSchema.js";
 import Booking from "../models/BookingSchema.js";
 import Stripe from "stripe";
 
 export const getCheckoutSession = async (req, res) => {
   try {
-    // get currently booked doctor
-    const doctor = await Doctor.findById(req.params.doctorId);
+    // get currently booked mentor
+    const mentor = await Mentor.findById(req.params.mentorId);
     const user = await User.findById(req.userId);
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -16,18 +16,18 @@ export const getCheckoutSession = async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       success_url: `${process.env.CLIENT_SITE_URL}/checkout-success`,
-      cancel_url: `${req.protocol}://${req.get("host")}/doctors/${doctor.id}`,
+      cancel_url: `${req.protocol}://${req.get("host")}/mentors/${mentor.id}`,
       customer_email: user.email,
-      client_reference_id: req.params.doctorId,
+      client_reference_id: req.params.mentorId,
       line_items: [
         {
           price_data: {
             currency: "bdt",
-            unit_amount: doctor.ticketPrice * 100,
+            unit_amount: mentor.ticketPrice * 100,
             product_data: {
-              name: doctor.name,
-              description: doctor.bio,
-              images: [doctor.photo],
+              name: mentor.name,
+              description: mentor.bio,
+              images: [mentor.photo],
             },
           },
           quantity: 1,
@@ -36,9 +36,9 @@ export const getCheckoutSession = async (req, res) => {
     });
     //create new booking
     const booking = new Booking({
-      doctor: doctor._id,
+      mentor: mentor._id,
       user: user._id,
-      ticketPrice: doctor.ticketPrice,
+      ticketPrice: mentor.ticketPrice,
       session: session.id,
     });
     await booking.save();
