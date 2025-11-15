@@ -1,5 +1,5 @@
-import Review from "../Models/ReviewSchema.js";
-import Mentor from "../Models/MentorSchema.js";
+import Review from "../models/ReviewSchema.js";
+import Mentor from "../models/MentorSchema.js";
 
 // get all reviews
 export const getAllReviews = async (req, res) => {
