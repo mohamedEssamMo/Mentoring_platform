@@ -1,52 +1,65 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser'; 
-import cors from 'cors';
+import express from "express";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import mongoose from "mongoose";
-import authRoute from './Routes/auth.js';
-import userRoute from './Routes/user.js';
-import mentorRoute from './Routes/mentor.js';
-import reviewRoute from './Routes/review.js';
-import bookingRoute from './Routes/booking.js';
+import serverless from "serverless-http";
 
-
-
+import authRoute from "./Routes/auth.js";
+import userRoute from "./Routes/user.js";
+import mentorRoute from "./Routes/mentor.js";
+import reviewRoute from "./Routes/review.js";
+import bookingRoute from "./Routes/booking.js";
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 8000;
 
-const corsOptions = {
-  origin: true,
-}
-app.get('/', (req, res) => {
-  res.send('API is running....');
-});
-// Connect to MongoDB
+// MongoDB Connection for Vercel
+mongoose.set("strictQuery", false);
+let isConnected = false;
 
-mongoose.set('strictQuery', false);
-const connectDB = async () => {
+async function connectDB() {
+  if (isConnected) return;
+
   try {
-    await mongoose.connect(process.env.MONGO_URI);
-    console.log('MongoDB connected successfully');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    const db = await mongoose.connect(process.env.MONGO_URI);
+    isConnected = db.connections[0].readyState;
+    console.log("MongoDB connected");
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
   }
 }
-//middleware
+
+// Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors(corsOptions));
-app.use('/api/v1/auth', authRoute)
-app.use('/api/v1/users', userRoute)
-app.use('/api/v1/mentors', mentorRoute)
-app.use('/api/v1/reviews', reviewRoute)
-app.use('/api/v1/bookings', bookingRoute);
+app.use(cors({ origin: true }));
 
-
-
-
-app.listen(PORT, () => {
-  connectDB();
-  console.log(`Server is running on port http://localhost:${PORT}`);
+// Always connect to DB per request
+app.use(async (req, res, next) => {
+  await connectDB();
+  next();
 });
+
+// Routes
+app.get("/", (req, res) => {
+  res.send("API is running....");
+});
+
+app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/users", userRoute);
+app.use("/api/v1/mentors", mentorRoute);
+app.use("/api/v1/reviews", reviewRoute);
+app.use("/api/v1/bookings", bookingRoute);
+
+// Only run app.listen in non-production environments
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
+  });
+}
+
+// Export serverless function
+export const handler = serverless(app);
+export default app;
