@@ -73,7 +73,7 @@ const MentorDetails = () => {
                     {name}
                     {location && (
                       <span className="text-[15px] text-gray-500 font-medium">
-                        • {location}
+                        / {location}
                       </span>
                     )}
                   </h3>

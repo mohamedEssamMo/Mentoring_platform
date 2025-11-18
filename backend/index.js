@@ -10,11 +10,12 @@ import userRoute from "./Routes/user.js";
 import mentorRoute from "./Routes/mentor.js";
 import reviewRoute from "./Routes/review.js";
 import bookingRoute from "./Routes/booking.js";
+import groupSessionRoute from "./Routes/groupSession.js"
+import groupBookingRoute from "./Routes/groupBooking.js"
 
 dotenv.config();
 const app = express();
 
-// MongoDB Connection for Vercel
 mongoose.set("strictQuery", false);
 let isConnected = false;
 
@@ -51,6 +52,9 @@ app.use("/api/v1/users", userRoute);
 app.use("/api/v1/mentors", mentorRoute);
 app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/bookings", bookingRoute);
+app.use("/api/v1/group_sessions", groupSessionRoute);
+app.use("/api/v1/group_bookings", groupBookingRoute);
+
 
 // Only run app.listen in non-production environments
 if (process.env.NODE_ENV !== "production") {

@@ -74,22 +74,21 @@ export const getSingleMentor = async (req, res) => {
 
 export const getAllMentor = async (req, res) => {
   try {
-    const { query } = req.query;
-    let mentors;
+    const { query, areaOfExpertise } = req.query;
+    let filter = { isApproved: "approved" };
 
     if (query) {
-      mentors = await Mentor.find({
-        isApproved: "approved",
-        $or: [
-          { name: { $regex: query, $options: "i" } },
-          { specialization: { $regex: query, $options: "i" } },
-        ],
-      }).select("-password");
-    } else {
-      mentors = await Mentor.find({ isApproved: "approved" }).select(
-        "-password"
-      );
+      filter.$or = [
+        { name: { $regex: query, $options: "i" } },
+        { jobTitle: { $regex: query, $options: "i" } }, 
+      ];
     }
+
+    if (areaOfExpertise) {
+      filter.areaOfExpertise = { $regex: areaOfExpertise, $options: "i" };
+    }
+
+    const mentors = await Mentor.find(filter).select("-password");
 
     res.status(200).json({
       success: true,
@@ -97,13 +96,13 @@ export const getAllMentor = async (req, res) => {
       data: mentors,
     });
   } catch (error) {
-    console.error(error); // helpful for debugging
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
     });
   }
 };
+
 
 export const getMentorProfile = async (req, res) => {
   try {

@@ -1,7 +1,6 @@
 import Review from "../models/ReviewSchema.js";
 import Mentor from "../models/MentorSchema.js";
 
-// get all reviews
 export const getAllReviews = async (req, res) => {
   try {
     const reviews = await Review.find({});
@@ -14,7 +13,6 @@ export const getAllReviews = async (req, res) => {
   }
 };
 
-// create review
 export const createReview = async (req, res) => {
   if (!req.body.mentor) req.body.mentor = req.params.mentorId;
   if (!req.body.user) req.body.user = req.userId;

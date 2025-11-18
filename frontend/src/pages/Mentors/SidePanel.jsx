@@ -7,7 +7,7 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots }) => {
   const bookingHandler = async () => {
     try {
       const res = await fetch(
-        `${BASE_URL}/bookings/checkout-session/${mentorId}`,
+        `${BASE_URL}/bookings/checkout_session/${mentorId}`,
         {
           method: "post",
           headers: {

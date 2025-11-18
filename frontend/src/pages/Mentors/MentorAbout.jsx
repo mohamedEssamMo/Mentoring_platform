@@ -20,21 +20,26 @@ const MentorAbout = ({ name, about, qualifications, experiences, links }) => {
           <h3 className="text-[20px] font-semibold text-headingColor mb-4">
             Professional Links
           </h3>
-          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {links.map((item, index) => (
-              <li
-                key={index}
-                className="bg-[#E0F7FA] text-irisBlueColor hover:bg-irisBlueColor hover:text-white transition-all duration-300 text-center font-medium text-[15px] py-2 rounded-full shadow-sm"
-              >
-                {item.link.startsWith("http") ? (
-                  <a href={item.link} target="_blank" rel="noopener noreferrer">
+          <ul className="space-y-3">
+            {links.map((item, index) => {
+              return (
+                <li key={index}>
+                  <a
+                    href={
+                      item.link.startsWith("http://") ||
+                      item.link.startsWith("https://")
+                        ? item.link
+                        : "https://" + item.link
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium underline-offset-2 hover:underline transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-sm "
+                  >
                     {item.name}
                   </a>
-                ) : (
-                  <Link to={item.link}>{item.name}</Link>
-                )}
-              </li>
-            ))}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

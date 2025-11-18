@@ -19,7 +19,7 @@ const Home = () => {
   return (
     <>
       {/* Hero Section */}
-      <section className="hero__section py-20 bg-[#f9fafb] mt-5">
+      <section className="hero__section py-20 bg-[#f9fafb] mt-20">
         <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-16 px-6 lg:px-12">
           {/* Left Content */}
           <div className="flex-1 text-center lg:text-left">

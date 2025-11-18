@@ -7,14 +7,16 @@ const MentorCard = ({ mentor }) => {
   const {
     _id,
     name,
-    avgRating,
+    averageRating,
     totalRating,
     photo,
     experiences,
     areaOfExpertise,
     jobTitle,
     bio,
+    location,
   } = mentor;
+  console.log(mentor);
 
   return (
     <div className="p-4 lg:p-6 rounded-2xl bg-white shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
@@ -30,7 +32,7 @@ const MentorCard = ({ mentor }) => {
 
       {/* Mentor Name */}
       <h2 className="mt-4 lg:mt-5 text-[20px] lg:text-[24px] font-bold text-headingColor tracking-tight hover:text-primaryColor transition-colors duration-200 truncate">
-        {name}
+        {name} <span className="font-mono text-sm text-gray-400">/{location}</span>
       </h2>
 
       <div className="flex justify-between items-center">
@@ -47,10 +49,7 @@ const MentorCard = ({ mentor }) => {
             {jobTitle}
           </p>
         )}
-
-
       </div>
-
 
       {/* Bio */}
       {bio && (
@@ -64,7 +63,7 @@ const MentorCard = ({ mentor }) => {
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1 text-[15px] font-semibold text-headingColor">
             <img src={starIcon} alt="star" className="w-4 h-4" />{" "}
-            {avgRating ? avgRating.toFixed(1) : 0}
+            {averageRating ? averageRating.toFixed(1) : 0}
           </span>
           <span className="text-[13px] text-gray-500 font-medium">
             ({totalRating || 0})

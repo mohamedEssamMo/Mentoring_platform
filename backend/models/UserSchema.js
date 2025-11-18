@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema(
       default: "Not Specified",
     },
     jobTitle: { type: String },
-    sessions: [{ type: mongoose.Types.ObjectId, ref: "Session" }], // Renamed from 'appointments'
+    sessions: [{ type: mongoose.Types.ObjectId, ref: "Session" }],
   },
   { timestamps: true }
 );

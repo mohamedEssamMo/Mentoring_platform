@@ -20,7 +20,7 @@ export const getCheckoutSession = async (req, res) => {
       line_items: [
         {
           price_data: {
-            currency: "bdt",
+            currency: "USD",
             unit_amount: mentor.hourlyFee * 100,
             product_data: {
               name: mentor.name,

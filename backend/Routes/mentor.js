@@ -12,7 +12,6 @@ import reviewRouter from "./review.js";
 const router = express.Router();
 
 
-// nested route
 router.use("/:mentorId/reviews", reviewRouter);
 router.get("/profile/me", authenticate, restrict(["mentor"]), getMentorProfile);
 

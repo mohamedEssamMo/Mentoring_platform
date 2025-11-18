@@ -102,7 +102,10 @@ const Dashboard = () => {
                       </span>
 
                       <h3 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
-                        {mentorData?.name}
+                        {mentorData?.name}{" "}
+                        <span className="font-mono text-sm text-gray-400">
+                          /{mentorData?.location}
+                        </span>
                       </h3>
 
                       {mentorData?.jobTitle && (
@@ -157,7 +160,7 @@ const Dashboard = () => {
                                     href={normalized.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium transition-colors duration-300"
+                                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 font-medium underline-offset-2 hover:underline transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 rounded-sm "
                                   >
                                     {normalized.label}
                                   </a>

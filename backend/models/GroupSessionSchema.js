@@ -7,6 +7,10 @@ const GroupSessionSchema = new mongoose.Schema(
       ref: "Mentor", // References the Mentor model
       required: true,
     },
+    imageURL: {
+      type: String,
+      required: true,
+    },
     topic: {
       type: String,
       required: true,
@@ -24,12 +28,12 @@ const GroupSessionSchema = new mongoose.Schema(
     maxParticipants: {
       type: Number,
       required: true,
-      min: 1, 
+      min: 1,
     },
     ticketPrice: {
       type: Number,
       required: true,
-      min: 0, 
+      min: 0,
     },
     status: {
       type: String,
@@ -41,6 +45,7 @@ const GroupSessionSchema = new mongoose.Schema(
     },
   },
   { timestamps: true }
-); 
+);
 
-export default mongoose.models.GroupSession || mongoose.model("GroupSession", GroupSessionSchema);
+export default mongoose.models.GroupSession ||
+  mongoose.model("GroupSession", GroupSessionSchema);

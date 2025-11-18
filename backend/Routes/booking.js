@@ -4,6 +4,6 @@ import { getCheckoutSession } from "../Controllers/bookingController.js";
 
 const router = express.Router();
 
-router.post("/checkout-session/:mentorId", authenticate, getCheckoutSession);
+router.post("/checkout_session/:mentorId", authenticate, getCheckoutSession);
 
 export default router;
