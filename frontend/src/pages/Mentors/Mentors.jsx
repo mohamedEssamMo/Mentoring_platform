@@ -70,7 +70,7 @@ const Mentors = () => {
           </div>
 
           {/* Expertise Filter Buttons */}
-          <div className="flex flex-row flex-wrap gap-3 mt-5 w-full p-5 items-center justify-center">
+          <div className="flex flex-row flex-wrap gap-3 mt-5 w-full p-5 md:items-center items-start md:justify-center justify-start">
             {areaOfExpertiseOptions.map((item, index) => (
               <button
                 key={index}

@@ -12,6 +12,8 @@ import reviewRoute from "./Routes/review.js";
 import bookingRoute from "./Routes/booking.js";
 import groupSessionRoute from "./Routes/groupSession.js"
 import groupBookingRoute from "./Routes/groupBooking.js"
+import contactRoute from "./Routes/contact.js";
+
 
 dotenv.config();
 const app = express();
@@ -54,6 +56,8 @@ app.use("/api/v1/reviews", reviewRoute);
 app.use("/api/v1/bookings", bookingRoute);
 app.use("/api/v1/group_sessions", groupSessionRoute);
 app.use("/api/v1/group_bookings", groupBookingRoute);
+app.use("/api/v1/send-email", contactRoute);
+
 
 
 // Only run app.listen in non-production environments

@@ -29,7 +29,7 @@ const FeedbackForm = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ rating, reviewText }), // ✅ FIXED
+        body: JSON.stringify({ rating, reviewText }),
       });
 
       const result = await res.json();
@@ -37,10 +37,10 @@ const FeedbackForm = () => {
       if (!res.ok) throw new Error(result.message);
 
       setLoading(false);
-      toast.success(result.message);
+      toast.success("Review submitted successfully");
     } catch (error) {
       setLoading(false);
-      toast.error(error.message);
+      toast.error("Submission failed — please log in and try again.");
     }
   };
 

@@ -22,7 +22,6 @@ export const createReview = async (req, res) => {
   try {
     const savedReview = await newReview.save();
 
-    // update the mentor object, pushing the new review's ID to the reviews array
     await Mentor.findByIdAndUpdate(req.body.mentor, {
       $push: { reviews: savedReview._id },
     });
@@ -31,6 +30,6 @@ export const createReview = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Review submitted", data: savedReview });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({ success: false, message: 'Failed : Ensure you are logged in' });
   }
 };

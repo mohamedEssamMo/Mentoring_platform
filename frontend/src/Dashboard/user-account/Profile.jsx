@@ -85,7 +85,7 @@ const Profile = ({ user }) => {
       toast.success(message);
       navigate("/users/profile/me");
     } catch (e) {
-      toast.error(e.message);
+      toast.error("Update failed — please try again.");
     } finally {
       setLoading(false);
     }
@@ -124,7 +124,6 @@ const Profile = ({ user }) => {
           aria-readonly
         />
       </div>
-
 
       {/* areaOfExpertise */}
       <div className="mb-5">

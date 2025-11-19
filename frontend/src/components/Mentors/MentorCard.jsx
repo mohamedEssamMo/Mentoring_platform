@@ -16,7 +16,6 @@ const MentorCard = ({ mentor }) => {
     bio,
     location,
   } = mentor;
-  console.log(mentor);
 
   return (
     <div className="p-4 lg:p-6 rounded-2xl bg-white shadow-md hover:shadow-xl border border-gray-100 transition-all duration-300 hover:-translate-y-1">
@@ -63,7 +62,7 @@ const MentorCard = ({ mentor }) => {
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1 text-[15px] font-semibold text-headingColor">
             <img src={starIcon} alt="star" className="w-4 h-4" />{" "}
-            {averageRating ? averageRating.toFixed(1) : 0}
+            {averageRating ? averageRating.toFixed(2) : 0}
           </span>
           <span className="text-[13px] text-gray-500 font-medium">
             ({totalRating || 0})

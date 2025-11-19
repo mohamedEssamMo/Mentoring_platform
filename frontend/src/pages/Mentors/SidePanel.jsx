@@ -25,7 +25,7 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots }) => {
         window.location.href = data.session.url;
       }
     } catch (err) {
-      toast.error(err.message);
+      toast.error('Booking failed — please log in and try again.');
     }
   };
 

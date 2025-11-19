@@ -37,8 +37,6 @@ const MentorDetails = () => {
     photo,
   } = mentor;
 
-  console.log(mentor);
-
   return (
     <section className="py-16 bg-gradient-to-b from-[#f9fafb] to-[#eef2f7] min-h-screen mt-20">
       <div className="max-w-[1170px] px-5 mx-auto">
@@ -81,7 +79,7 @@ const MentorDetails = () => {
                   <div className="flex items-center justify-center sm:justify-start gap-2 mt-2">
                     <span className="flex items-center gap-1 text-[16px] font-semibold text-headingColor">
                       <img src={starIcon} alt="rating" className="w-5 h-5" />
-                      {averageRating}
+                      {averageRating ? averageRating.toFixed(2) : "0.0"}
                     </span>
                     <span className="text-[14px] text-gray-500">
                       ({totalRating})

@@ -121,7 +121,7 @@ const Dashboard = () => {
                             alt="rating star"
                             className="w-5 h-5"
                           />
-                          {mentorData?.averageRating || 0}
+                          {mentorData?.averageRating.toFixed(2) || 0}
                         </span>
                         <span className="text-gray-500 dark:text-gray-400 text-sm">
                           ({mentorData?.totalRating || 0})

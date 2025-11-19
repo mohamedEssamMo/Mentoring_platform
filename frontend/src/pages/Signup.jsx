@@ -71,7 +71,9 @@ const Signup = () => {
       toast.success(message);
       navigate("/login");
     } catch (e) {
-      toast.error(e.message);
+      toast.error(
+        "Registration failed — please verify your details and try again."
+      );
       setLoading(false);
     }
   };

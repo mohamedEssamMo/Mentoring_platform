@@ -2,36 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import { RiLinkedinFill } from "react-icons/ri";
-import {
-  AiFillYoutube,
-  AiFillGithub,
-  AiOutlineInstagram,
-} from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
 
 const socialLinks = [
-  {
-    path: "https://www.youtube.com/c/CodingWithMuhib",
-    icon: <AiFillYoutube className="w-5 h-5" />,
-    title: "CodingWithMuhib",
-    color: "bg-red-600",
-  },
   {
     path: "https://github.com/mohamedEssamMo",
     icon: <AiFillGithub className="w-5 h-5" />,
     title: "Mohamed Essam",
-    color: "bg-black",
+    color: "bg-primaryColor",
   },
   {
     path: "https://github.com/constellationCoder",
     icon: <AiFillGithub className="w-5 h-5" />,
     title: "Abdelrhman Magdy",
-    color: "bg-black",
+    color: "bg-primaryColor",
   },
   {
     path: "https://github.com/Nouransaid",
     icon: <AiFillGithub className="w-5 h-5" />,
     title: "Nouran Said",
-    color: "bg-black",
+    color: "bg-primaryColor",
   },
 ];
 
@@ -67,18 +57,20 @@ const Footer = () => {
             Gain guidance, confidence, and practical skills for a successful
             career.
           </p>
-          <div className="flex items-center gap-4 mt-5">
+          <div className="flex items-center gap-6 mt-5">
             {socialLinks.map((link, index) => (
-              <a
-                href={link.path}
-                target="_blank"
-                rel="noopener noreferrer"
-                key={index}
-                title={link.title}
-                className={`w-10 h-10 flex items-center justify-center rounded-full text-white hover:scale-110 transition-transform duration-300 ${link.color}`}
-              >
-                {link.icon}
-              </a>
+              <div key={index} className="flex flex-col items-center">
+                <a
+                  href={link.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={link.title}
+                  className={`w-10 h-10 flex items-center justify-center rounded-full text-white hover:scale-110 transition-transform duration-300 ${link.color} hover:text-yellowColor`}
+                >
+                  {link.icon}
+                </a>
+                <span className="mt-2 text-xs text-white">{link.title}</span>
+              </div>
             ))}
           </div>
         </div>
@@ -138,7 +130,6 @@ const Footer = () => {
         <span className="font-semibold hover:text-yellow-400 transition-colors">
           DEPI Team 4
         </span>{" "}
-        (ref. Muhibur Rahman)
       </p>
     </footer>
   );

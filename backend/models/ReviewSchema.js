@@ -36,8 +36,6 @@ reviewSchema.pre(/^find/, function (next) {
 });
 
 reviewSchema.statics.calcAverageRatings = async function (mentorId) {
-  // Changed
-  // this points to the current review model
   const stats = await this.aggregate([
     {
       $match: { mentor: mentorId },
@@ -51,7 +49,6 @@ reviewSchema.statics.calcAverageRatings = async function (mentorId) {
     },
   ]);
 
-  // *** See suggestion below for improving this part ***
   if (stats.length > 0) {
     await Mentor.findByIdAndUpdate(mentorId, {
       totalRating: stats[0].numOfRating,

@@ -42,7 +42,9 @@ const Login = () => {
       toast.success(result.message);
       navigate("/home");
     } catch (e) {
-      toast.error(e.message);
+      toast.error(
+        "Login failed — please check your credentials and try again."
+      );
       setLoading(false);
     }
   };

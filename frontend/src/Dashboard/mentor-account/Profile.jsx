@@ -205,6 +205,7 @@ const Profile = ({ mentorData }) => {
     "Zambia",
     "Zimbabwe",
   ];
+  const dayOptions = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -279,7 +280,7 @@ const Profile = ({ mentorData }) => {
       if (!res.ok) throw new Error(result.message);
       toast.success(result.message);
     } catch (err) {
-      toast.error(err.message);
+      toast.error("Update failed — please try again.");
     }
   };
 
