@@ -8,7 +8,7 @@ import Avatar from "../../assets/images/avatar-icon.png";
 const navLinks = [
   { path: "/home", display: "Home" },
   { path: "/mentors", display: "Find Mentor" },
-  { path: "/Group-Session", display: "Group Session" },
+  { path: "/Group_Session", display: "Group Session" },
   { path: "/services", display: "Services" },
   { path: "/contact", display: "Contact" },
 ];

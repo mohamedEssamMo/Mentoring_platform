@@ -5,6 +5,8 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Mentors from "../pages/Mentors/Mentors";
 import MentorDetails from "../pages/Mentors/MentorDetails";
+import GroupSession from "../pages/GroupSession/GSessions.jsx";
+import GroupSessionDetails from "../pages/GroupSession/GSessionDetails.jsx";
 import Notfound from "../pages/NotFound";
 import MyAccount from "../Dashboard/user-account/MYAccount.jsx";
 import Dashboard from "../Dashboard/mentor-account/Dashboard.jsx";
@@ -24,6 +26,8 @@ const Routers = () => {
       <Route path="/register" element={<Signup />} />
       <Route path="/mentors" element={<Mentors />} />
       <Route path="/mentors/:id" element={<MentorDetails />} />
+      <Route path="/Group_Session" element={<GroupSession />} />
+      <Route path="/Group_Session/:id" element={<GroupSessionDetails />} />
       <Route
         path="/users/profile/me"
         element={
@@ -40,7 +44,7 @@ const Routers = () => {
           </ProtectedRoute>
         }
       />
-      <Route path="/checkout-success" element={<CheckoutSuccess/>} />
+      <Route path="/checkout-success" element={<CheckoutSuccess />} />
       <Route path="*" element={<Notfound />} />
     </Routes>
   );
