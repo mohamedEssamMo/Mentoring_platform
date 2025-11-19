@@ -6,7 +6,6 @@ dotenv.config();
 export const sendEmail = async (req, res) => {
   const { subject, email, message } = req.body;
 
-  // --- Basic validation ---
   if (!subject || !email || !message) {
     return res.status(400).json({
       success: false,
@@ -14,30 +13,54 @@ export const sendEmail = async (req, res) => {
     });
   }
 
+  const EMAIL = process.env.EMAIL;
+  const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+  if (!EMAIL || !EMAIL_PASSWORD) {
+    console.error("Missing email environment variables", {
+      EMAIL_set: !!EMAIL,
+      EMAIL_PASSWORD_set: !!EMAIL_PASSWORD,
+    });
+    return res.status(500).json({
+      success: false,
+      message: "Server configuration error: missing email credentials",
+    });
+  }
+
   try {
-    // --- Transporter ---
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
       port: 587,
       secure: false,
       auth: {
-        user: process.env.EMAIL,
-        pass: process.env.EMAIL_PASSWORD,
+        user: EMAIL,
+        pass: EMAIL_PASSWORD,
+      },
+      tls: {
+        rejectUnauthorized: false,
       },
     });
 
-    // --- Email structure ---
-    const mailOptions = {
-      from: `"Website Contact" <${process.env.EMAIL}>`, // safer & prevents spam filtering
-      replyTo: email, // allows you to reply directly to sender
-      to: process.env.EMAIL,
-      subject: `📬 New message — ${subject}`,
-      text: `
-From: ${email}
-Subject: ${subject}
+    try {
+      await transporter.verify();
+      console.log("SMTP verify OK");
+    } catch (verifyError) {
+      console.error("SMTP verify failed:", {
+        message: verifyError.message,
+        code: verifyError.code,
+        stack: verifyError.stack,
+      });
+      return res.status(500).json({
+        success: false,
+        message: "Failed to connect to email server. Check server logs.",
+      });
+    }
 
-${message}
-      `,
+    const mailOptions = {
+      from: `"Website Contact" <${EMAIL}>`,
+      replyTo: email,
+      to: EMAIL,
+      subject: `📬 New message — ${subject}`,
+      text: `From: ${email}\nSubject: ${subject}\n\n${message}`,
       html: `
         <div style="font-family: Arial; padding: 15px; border: 1px solid #ddd; border-radius: 8px;">
           <h2 style="color: #333;">📬 New Message</h2>
@@ -48,9 +71,7 @@ ${message}
       `,
     };
 
-    // --- Send email ---
     const info = await transporter.sendMail(mailOptions);
-
     console.log("Email sent:", info.messageId);
 
     return res.status(200).json({
@@ -58,7 +79,12 @@ ${message}
       message: "Email sent successfully",
     });
   } catch (error) {
-    console.error("Email error:", error);
+    console.error("Email error full:", {
+      message: error?.message,
+      code: error?.code,
+      response: error?.response || null,
+      stack: error?.stack,
+    });
 
     return res.status(500).json({
       success: false,
