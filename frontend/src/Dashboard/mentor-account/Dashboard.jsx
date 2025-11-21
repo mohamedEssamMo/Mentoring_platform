@@ -9,7 +9,8 @@ import MentorAbout from "../../pages/Mentors/MentorAbout";
 import Profile from "./Profile";
 import DefaultMentor from "../../assets/images/feature-img.png";
 import Appointment from "./Appointments";
-
+import MyGroupSession from "./MentorGroupSessions";
+import CreateGroupSession from "./CreateGroupSession";
 const Dashboard = () => {
   const {
     data: mentorData,
@@ -46,7 +47,7 @@ const Dashboard = () => {
   };
 
   return (
-    <section className="mt-10 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 min-h-screen transition-colors duration-700">
+    <section className="mt-20 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 min-h-screen transition-colors duration-700">
       <div className="max-w-[1300px] mx-auto px-5">
         {loading ? (
           <Loader />
@@ -121,7 +122,7 @@ const Dashboard = () => {
                             alt="rating star"
                             className="w-5 h-5"
                           />
-                          {mentorData?.averageRating.toFixed(2) || 0}
+                          {mentorData?.averageRating?.toFixed(2) ?? "0.00"}
                         </span>
                         <span className="text-gray-500 dark:text-gray-400 text-sm">
                           ({mentorData?.totalRating || 0})
@@ -192,6 +193,20 @@ const Dashboard = () => {
               {tab === "settings" && (
                 <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
                   <Profile mentorData={mentorData} />
+                </div>
+              )}
+
+              {/* mentorGroupSessions Tab */}
+              {tab === "mentorGroupSessions" && (
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                  <MyGroupSession />
+                </div>
+              )}
+
+              {/* CreateGroupSession Tab */}
+              {tab === "CreateGroupSession" && (
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                  <CreateGroupSession mentorId={mentorData?._id} />
                 </div>
               )}
             </div>

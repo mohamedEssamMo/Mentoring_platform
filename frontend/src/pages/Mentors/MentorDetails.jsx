@@ -79,7 +79,7 @@ const MentorDetails = () => {
                   <div className="flex items-center justify-center sm:justify-start gap-2 mt-2">
                     <span className="flex items-center gap-1 text-[16px] font-semibold text-headingColor">
                       <img src={starIcon} alt="rating" className="w-5 h-5" />
-                      {averageRating ? averageRating.toFixed(2) : "0.0"}
+                      {(averageRating ?? 0).toFixed(2)}
                     </span>
                     <span className="text-[14px] text-gray-500">
                       ({totalRating})

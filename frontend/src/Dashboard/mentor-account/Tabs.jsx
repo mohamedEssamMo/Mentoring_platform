@@ -27,7 +27,7 @@ const Tabs = ({ tab, setTab }) => {
       </span>
 
       {/* Desktop Tabs */}
-      <div className="hidden lg:flex flex-col p-6 bg-white dark:bg-gray-900 shadow-lg rounded-xl w-48">
+      <div className="hidden lg:flex flex-col p-6 bg-white dark:bg-gray-900 shadow-lg rounded-xl w-full">
         <button
           onClick={() => setTab("overview")}
           className={tabClasses(tab === "overview")}
@@ -47,6 +47,20 @@ const Tabs = ({ tab, setTab }) => {
           className={tabClasses(tab === "settings")}
         >
           Profile
+        </button>
+
+        <button
+          onClick={() => setTab("mentorGroupSessions")}
+          className={tabClasses(tab === "mentorGroupSessions")}
+        >
+          Mentor Group Sessions
+        </button>
+
+        <button
+          onClick={() => setTab("CreateGroupSession")}
+          className={tabClasses(tab === "CreateGroupSession")}
+        >
+          Create Group Session
         </button>
 
         <button
