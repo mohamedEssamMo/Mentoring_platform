@@ -14,7 +14,7 @@ const FaqItem = ({ item }) => {
         className="flex items-center justify-between gap-5"
         onClick={toggleAccordion}
       >
-        <h4 className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-headingColor">
+        <h4 className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-white font-semibold">
           {item.question}
         </h4>
         <div
@@ -28,7 +28,7 @@ const FaqItem = ({ item }) => {
 
       {isOpen && (
         <div className="mt-4">
-          <p className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-textColor">
+          <p className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-gray-200">
             {item.content}
           </p>
         </div>
