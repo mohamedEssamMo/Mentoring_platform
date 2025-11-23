@@ -35,22 +35,22 @@ const Appointments = ({ appointments }) => {
                 className="flex items-center px-6 py-4 text-gray-900 dark:text-gray-100 whitespace-nowrap"
               >
                 <img
-                  src={item.user.photo || "/default-avatar.png"}
+                  src={item.user?.photo || "/default-avatar.png"}
                   className="w-10 h-10 rounded-full object-cover"
-                  alt={item.user.name}
+                  alt={item.user?.name}
                 />
                 <div className="pl-3">
                   <div className="text-base font-semibold">
-                    {item.user.name}
+                    {item.user?.name}
                   </div>
                   <div className="text-sm text-gray-500 dark:text-gray-400">
-                    {item.user.email}
+                    {item.user?.email}
                   </div>
                 </div>
               </th>
 
               <td className="px-6 py-4 text-gray-700 dark:text-gray-300 capitalize">
-                {item.user.gender}
+                {item.user?.gender}
               </td>
 
               <td className="px-6 py-4">

@@ -20,13 +20,13 @@ const useFetchData = (url) => {
         const result = await res.json()
 
         if (!res.ok) {
-          throw new Error('Failed to fetch data 😕')
+          throw new Error('Please, Ensure from your internet connection 😕')
         }
 
         setData(result.data)
       } catch (err) {
         setError(err.message)
-        toast.error('Failed to fetch data 😕')
+        toast.error('Please, Ensure from your internet connection 😕')
       } finally {
         setLoading(false)
       }
