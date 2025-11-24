@@ -79,15 +79,18 @@ const CreateGroupSession = ({ mentorId }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center w-full">
-      <div className="relative z-10 w-full max-w-2xl bg-white rounded-lg shadow-xl p-8">
-        <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-3 text-center">
+    <section className="relative w-full py-8 px-4 sm:px-6">
+      <div className="relative z-10 w-full max-w-3xl bg-white rounded-lg shadow-xl p-6 sm:p-8 mx-auto">
+        <h3 className="text-headingColor md:text-[22px] text-lg leading-9 font-bold mb-4 text-center">
           Create a <span className="text-primaryColor">Group Session</span>
         </h3>
 
-        <form onSubmit={submitHandler} className="container">
+        <form
+          onSubmit={submitHandler}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+        >
           {/* Topic */}
-          <div className="mb-5">
+          <div className="mb-0 md:col-span-2">
             <label
               htmlFor="topic"
               className="block text-headingColor font-semibold mb-2"
@@ -107,7 +110,7 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Description */}
-          <div className="mb-5">
+          <div className="mb-0 md:col-span-2">
             <label
               htmlFor="description"
               className="block text-headingColor font-semibold mb-2"
@@ -127,7 +130,7 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Ticket Price */}
-          <div className="mb-5">
+          <div className="mb-0">
             <label
               htmlFor="ticketPrice"
               className="block text-headingColor font-semibold mb-2"
@@ -147,7 +150,7 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Start Date/Time */}
-          <div className="mb-5">
+          <div className="mb-0">
             <label
               htmlFor="startDatetime"
               className="block text-headingColor font-semibold mb-2"
@@ -166,7 +169,7 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Duration */}
-          <div className="mb-5">
+          <div className="mb-0">
             <label
               htmlFor="durationMinutes"
               className="block text-headingColor font-semibold mb-2"
@@ -186,7 +189,7 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Max Participants */}
-          <div className="mb-5">
+          <div className="mb-0">
             <label
               htmlFor="maxParticipants"
               className="block text-headingColor font-semibold mb-2"
@@ -206,34 +209,44 @@ const CreateGroupSession = ({ mentorId }) => {
           </div>
 
           {/* Image Upload */}
-          <div className="mb-5 flex items-center gap-3">
-            <div className="relative w-[160px] h-[50px]">
-              <input
-                type="file"
-                name="imageURL"
-                id="customFile"
-                onChange={handleFileInputChange}
-                accept=".jpg,.png"
-                className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-              />
-              <label
-                htmlFor="customFile"
-                className="absolute top-0 left-0 w-full h-full flex items-center justify-center text-center text-[15px] leading-6 bg-[#0066ff46] text-headingColor font-semibold rounded-lg cursor-pointer"
-              >
-                Upload Image
-              </label>
+          <div className="mb-0 md:col-span-2">
+            <label className="block text-headingColor font-semibold mb-2">
+              Session Image
+            </label>
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+              <div className="relative w-full sm:w-[180px]">
+                <input
+                  type="file"
+                  name="imageURL"
+                  id="customFile"
+                  onChange={handleFileInputChange}
+                  accept=".jpg,.png"
+                  className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
+                />
+                <label
+                  htmlFor="customFile"
+                  className="w-full sm:w-auto block text-center px-4 py-2 bg-[#0066ff46] text-headingColor font-semibold rounded-lg cursor-pointer"
+                >
+                  Upload Image
+                </label>
+              </div>
+
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Preview"
+                  className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md border"
+                />
+              ) : (
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-50 rounded-md border flex items-center justify-center text-sm text-textColor">
+                  
+                </div>
+              )}
             </div>
-            {previewUrl && (
-              <img
-                src={previewUrl}
-                alt="Preview"
-                className="w-20 h-20 object-cover rounded-md border"
-              />
-            )}
           </div>
 
           {/* Submit */}
-          <div className="mt-7">
+          <div className="mt-3 md:col-span-2">
             <button
               disabled={loading}
               type="submit"

@@ -21,6 +21,7 @@ const Header = () => {
   // Sticky header with shadow
   useEffect(() => {
     const handleScroll = () => {
+      if (!headerRef.current) return;
       if (window.scrollY > 80) {
         headerRef.current.classList.add("shadow-lg", "bg-white");
       } else {
@@ -29,6 +30,15 @@ const Header = () => {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close menu on Escape key for accessibility
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
   }, []);
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -40,12 +50,18 @@ const Header = () => {
     >
       <div className="container mx-auto px-4 py-4 flex items-center justify-between md:justify-around">
         {/* Logo */}
-        <Link to="/">
-          <img src={logo} alt="Logo" className="w-44 md:w-52" />
+        <Link to="/" aria-label="Mentoring Platform home">
+          <img
+            src={logo}
+            alt="Mentoring Platform logo"
+            className="w-44 md:w-52"
+          />
         </Link>
 
         {/* Navigation */}
         <nav
+          id="primary-navigation"
+          aria-label="Primary"
           className={`md:flex items-center gap-8 absolute md:static top-full left-0 w-full md:w-auto bg-white md:bg-transparent transition-all duration-300 ${
             menuOpen
               ? "opacity-100 h-auto py-4 shadow-md md:shadow-none"
@@ -53,8 +69,8 @@ const Header = () => {
           } rounded-b-md md:rounded-none`}
         >
           <ul className="flex flex-col md:flex-row items-center gap-6 md:gap-8 px-4 md:px-0">
-            {navLinks.map((link, index) => (
-              <li key={index} className="group relative">
+            {navLinks.map((link) => (
+              <li key={link.path} className="group relative">
                 <NavLink
                   to={link.path}
                   className={({ isActive }) =>
@@ -100,23 +116,24 @@ const Header = () => {
           )}
 
           {/* Mobile Menu Toggle */}
-          <span className="md:hidden text-gray-700" onClick={toggleMenu}>
+          <button
+            type="button"
+            className="md:hidden text-gray-700 p-2"
+            onClick={toggleMenu}
+            aria-expanded={menuOpen}
+            aria-controls="primary-navigation"
+            aria-label={
+              menuOpen ? "Close navigation menu" : "Open navigation menu"
+            }
+          >
             {menuOpen ? (
               <BiX className="w-7 h-7 cursor-pointer" />
             ) : (
               <BiMenu className="w-7 h-7 cursor-pointer" />
             )}
-          </span>
+          </button>
         </div>
       </div>
-
-      {/* Optional Mobile Menu Overlay */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm z-40 md:hidden"
-          onClick={toggleMenu}
-        ></div>
-      )}
     </header>
   );
 };

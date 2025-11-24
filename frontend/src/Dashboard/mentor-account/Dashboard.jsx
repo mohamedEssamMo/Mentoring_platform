@@ -56,7 +56,7 @@ const Dashboard = () => {
         ) : (
           <div className="grid lg:grid-cols-3 gap-10 lg:gap-14">
             {/* Sidebar Tabs */}
-            <aside className="bg-white/70 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-lg rounded-3xl p-6 sticky top-24 h-fit transition-all duration-500 hover:shadow-2xl">
+            <aside className="bg-white/70 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-lg rounded-3xl p-6 lg:sticky lg:top-24 h-fit transition-all duration-500 hover:shadow-2xl">
               <Tabs tab={tab} setTab={setTab} />
             </aside>
 
@@ -185,7 +185,7 @@ const Dashboard = () => {
               {/* Appointments Tab */}
               {tab === "appointments" && (
                 <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
-                  <Appointment appointments={mentorData.appointments} />
+                  <Appointment appointments={mentorData?.appointments || []} />
                 </div>
               )}
 
