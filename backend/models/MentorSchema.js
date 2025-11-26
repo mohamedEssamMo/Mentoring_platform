@@ -37,15 +37,24 @@ const MentorSchema = new mongoose.Schema(
       type: Array,
     },
 
-    bio: { type: String, maxLength: 250 }, // Added a reasonable maxLength
+    bio: { type: String, maxLength: 250 },
     about: { type: String },
     location: { type: String },
 
     links: {
       type: Array,
     },
+    google: {
+      accessToken: String,
+      refreshToken: String,
+      expiryDate: Number,
+    },
 
-    timezone: { type: String },
+    timezone: {
+      type: String,
+      default: "Africa/Cairo",
+      
+    },
 
     timeSlots: { type: Array },
 
@@ -71,7 +80,7 @@ const MentorSchema = new mongoose.Schema(
       enum: ["pending", "approved", "cancelled"],
       default: "pending",
     },
-    sessions: [{ type: mongoose.Types.ObjectId, ref: "Session" }], // Renamed from 'appointments'
+    sessions: [{ type: mongoose.Types.ObjectId, ref: "Session" }],
   },
   { timestamps: true }
 );

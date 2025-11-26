@@ -205,7 +205,6 @@ const Profile = ({ mentorData }) => {
     "Zambia",
     "Zimbabwe",
   ];
-  const dayOptions = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
   const [formData, setFormData] = useState({
     name: "",
@@ -296,11 +295,49 @@ const Profile = ({ mentorData }) => {
     });
   };
 
+  const updateTimeSlots = (key, index, field, value) => {
+    const updated = [...formData[key]];
+    updated[index][field] = value;
+
+    const { startingTime, endingTime } = updated[index];
+
+    if (startingTime && endingTime) {
+      updated[index].hourSlots = generateHourlySlots(startingTime, endingTime);
+    }
+
+    setFormData((prev) => ({ ...prev, [key]: updated }));
+  };
+
+
   const deleteItem = (key, index) => {
     setFormData((prev) => ({
       ...prev,
       [key]: prev[key].filter((_, i) => i !== index),
     }));
+  };
+  const generateHourlySlots = (startTime, endTime) => {
+    const parseHour = (t) => parseInt(t.split(":")[0], 10);
+
+    const start = parseHour(startTime);
+    const end = parseHour(endTime);
+
+    const fmt = (h) => {
+      if (h === 0) return "12 AM";
+      if (h < 12) return `${h} AM`;
+      if (h === 12) return "12 PM";
+      return `${h - 12} PM`;
+    };
+
+    const slots = [];
+
+    for (let h = start; h < end; h++) {
+      slots.push({
+        time: `${fmt(h)} - ${fmt(h + 1)}`,
+        status: "available",
+      });
+    }
+
+    return slots;
   };
 
   return (
@@ -395,7 +432,6 @@ const Profile = ({ mentorData }) => {
             </div>
           ))}
         </div>
-
         {/* Array Sections */}
         {[
           {
@@ -430,21 +466,6 @@ const Profile = ({ mentorData }) => {
                 endingDate: "",
                 position: "",
                 company: "",
-              }),
-          },
-          {
-            key: "timeSlots",
-            label: "Time Slots",
-            fields: [
-              { name: "day", type: "text", label: "Day" },
-              { name: "startingTime", type: "time", label: "Start Time" },
-              { name: "endingTime", type: "time", label: "End Time" },
-            ],
-            addItemFunc: () =>
-              addItem("timeSlots", {
-                day: "",
-                startingTime: "",
-                endingTime: "",
               }),
           },
           {
@@ -510,6 +531,86 @@ const Profile = ({ mentorData }) => {
           </div>
         ))}
 
+        {/* Time Slots */}
+        {[
+          {
+            key: "timeSlots",
+            label: "Time Slots",
+            fields: [
+              { name: "day", type: "date", label: "Day" },
+              { name: "startingTime", type: "time", label: "Start Time" },
+              { name: "endingTime", type: "time", label: "End Time" },
+            ],
+            addItemFunc: () =>
+              addItem("timeSlots", {
+                day: "",
+                startingTime: "",
+                endingTime: "",
+              }),
+          },
+        ].map(({ key, label, fields, addItemFunc }) => (
+          <div
+            key={key}
+            className="bg-gray-50 dark:bg-gray-900 p-6 rounded-2xl shadow-md"
+          >
+            <p className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">
+              {label}
+            </p>
+
+            {formData[key]?.map((item, index) => (
+              <div
+                key={index}
+                className="mb-5 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-inner border border-gray-200 dark:border-gray-700"
+              >
+                <div className={`grid grid-cols-${fields.length} gap-4`}>
+                  {fields.map((field) => (
+                    <div key={field.name}>
+                      <label className="form_label text-gray-700 dark:text-gray-200 mb-1 block">
+                        {field.label}
+                      </label>
+
+                      <input
+                        type={field.type}
+                        name={field.name}
+                        value={item[field.name]}
+                        onChange={(e) =>
+                          updateTimeSlots(
+                            key,
+                            index,
+                            field.name,
+                            e.target.value
+                          )
+                        }
+                        className="form_input rounded-lg border border-gray-300 dark:border-gray-600 p-2 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
+                      />
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    deleteItem(key, index);
+                  }}
+                  className="flex items-center justify-center mt-3 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-xl transition-all shadow-sm"
+                >
+                  <AiOutlineDelete size={20} />
+                </button>
+              </div>
+            ))}
+
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                addItemFunc();
+              }}
+              className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white py-2 rounded-xl shadow-md transition-all font-medium"
+            >
+              + Add {label}
+            </button>
+          </div>
+        ))}
+
         {/* About */}
         <div>
           <label className="form_label font-medium text-gray-700 dark:text-gray-200 mb-2 block">
@@ -524,7 +625,6 @@ const Profile = ({ mentorData }) => {
             className="form_input rounded-xl border border-gray-300 dark:border-gray-700 p-3 w-full bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-indigo-500 transition"
           />
         </div>
-
         {/* Photo Upload */}
         <div className="flex items-center gap-6">
           {formData.photo && (
@@ -553,7 +653,6 @@ const Profile = ({ mentorData }) => {
             </label>
           </div>
         </div>
-
         {/* Submit */}
         <div className="flex justify-end pt-4">
           <button

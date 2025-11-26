@@ -1,18 +1,16 @@
 import { useState } from "react";
 import { BASE_URL, token } from "../config";
 import { toast } from "react-toastify";
-import convertTime from "../utils/convertTime";
-import ScheduleCard from "./ScheduleCard";
+import DisplaySlots from "./DisplaySlots";
 
 const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
-  const [showPopup, setShowPopup] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const bookingHandler = async () => {
+    console.log("Selected Slot:", selectedSlot);
     if (!selectedSlot) {
       return toast.error("Please select a time slot first.");
     }
-
     try {
       const res = await fetch(
         `${BASE_URL}/bookings/checkout_session/${mentorId}`,
@@ -37,11 +35,12 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
       }
     } catch (err) {
       toast.error("Booking failed — please log in and try again.");
+      console.error(err);
     }
   };
 
   return (
-    <div className="p-6 bg-white rounded-3xl shadow-xl border border-gray-100">
+    <div className="p-6 bg-white rounded-3xl shadow-xl border border-gray-100 max-h-[600px] overflow-y-auto">
       {/* Fee */}
       <div className="flex items-center justify-between mb-5 border-b pb-3">
         <p className="text-[16px] font-semibold text-gray-700">Hourly Fee</p>
@@ -55,74 +54,19 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
         Available Time Slots
       </p>
 
-      <ul className="space-y-2">
-        {(timeSlots || []).slice(0, 2).map((slot, index) => (
-          <li
-            key={index}
-            className="flex items-center justify-between bg-gray-50 rounded-lg border px-3 py-2"
-          >
-            <span className="capitalize">{slot.day}</span>
-            <span className="text-indigo-600 font-medium">
-              {convertTime(slot.startingTime)} - {convertTime(slot.endingTime)}
-            </span>
-          </li>
-        ))}
-      </ul>
-
+      <DisplaySlots
+        timeSlots={timeSlots}
+        selectedSlot={selectedSlot}
+        setSelectedSlot={setSelectedSlot}
+        previewOnly={false}
+      />
       {/* Button */}
       <button
-        onClick={() => setShowPopup(true)}
+        onClick={bookingHandler}
         className="w-full mt-6 py-3 bg-indigo-600 text-white rounded-xl font-semibold shadow hover:bg-indigo-700"
       >
         Book Appointment
       </button>
-
-      {/* Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white rounded-3xl p-6 w-[95%] max-w-3xl shadow-xl">
-            <h3 className="text-xl font-bold mb-4 text-gray-800">
-              Choose a Session
-            </h3>
-
-            <div className="flex gap-4 overflow-x-auto pb-3">
-              {(timeSlots || []).map((slot, index) => {
-                const time = `${convertTime(slot.startingTime)} - ${convertTime(
-                  slot.endingTime
-                )}`;
-
-                return (
-                  <ScheduleCard
-                    key={index}
-                    day={slot.day}
-                    date={slot.date}
-                    slots={slot.slots}
-                    time={time}
-                    onSelect={(s) => setSelectedSlot(s)}
-                    isSelected={selectedSlot?.time === time}
-                  />
-                );
-              })}
-            </div>
-
-            <div className="flex justify-end gap-3 mt-6">
-              <button
-                onClick={() => setShowPopup(false)}
-                className="px-5 py-2 rounded-lg border font-medium text-gray-600"
-              >
-                Cancel
-              </button>
-
-              <button
-                onClick={bookingHandler}
-                className="px-5 py-2 rounded-lg bg-indigo-600 text-white font-semibold shadow hover:bg-indigo-700"
-              >
-                Confirm Booking
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -9,9 +9,3 @@ export default defineConfig({
     port: 5173,
   },
 });
-
-// production version
-// export default defineConfig({
-//   plugins: [react()],
-//   base: '/',
-// })

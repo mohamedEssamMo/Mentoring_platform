@@ -11,6 +11,7 @@ import DefaultMentor from "../../assets/images/feature-img.png";
 import Appointment from "./Appointments";
 import MyGroupSession from "./MentorGroupSessions";
 import CreateGroupSession from "./CreateGroupSession";
+import ConnectGoogleButton from "../../components/ConnectGoogleCalendar"
 const Dashboard = () => {
   const {
     data: mentorData,
@@ -45,7 +46,7 @@ const Dashboard = () => {
 
     return { href, label };
   };
-
+  
   return (
     <section className="mt-20 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 min-h-screen transition-colors duration-700">
       <div className="max-w-[1300px] mx-auto px-5">
@@ -142,6 +143,8 @@ const Dashboard = () => {
                     </div>
                   </div>
 
+                  <h1>Welcome to your dashboard</h1>
+                  <ConnectGoogleButton mentorId={mentorData?._id} />
                   {/* Links Section */}
                   {Array.isArray(mentorData?.links) &&
                     mentorData.links.filter(Boolean).length > 0 && (

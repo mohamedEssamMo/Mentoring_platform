@@ -13,16 +13,17 @@ const bookingSchema = new mongoose.Schema(
       required: true,
     },
     ticketPrice: { type: String, required: true },
-    
+
     status: {
       type: String,
       enum: ["pending", "approved", "cancelled"],
-      default: "pending",
+      default: "approved",
     },
     isPaid: {
       type: Boolean,
       default: true,
     },
+    meetLink: { type: String },
   },
   { timestamps: true }
 );
