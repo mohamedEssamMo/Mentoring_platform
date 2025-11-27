@@ -11,6 +11,7 @@ import Notfound from "../pages/NotFound";
 import MyAccount from "../Dashboard/user-account/MYAccount.jsx";
 import Dashboard from "../Dashboard/mentor-account/Dashboard.jsx";
 import CheckoutSuccess from "../pages/CheckoutSuccess";
+import GSessions from "../pages/GroupSession/GSessions";
 
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.jsx";
@@ -28,6 +29,7 @@ const Routers = () => {
       <Route path="/mentors/:id" element={<MentorDetails />} />
       <Route path="/Group_Session" element={<GroupSession />} />
       <Route path="/Group_Session/:id" element={<GroupSessionDetails />} />
+      <Route path="/group-sessions" element={<GSessions />} />
       <Route
         path="/users/profile/me"
         element={
