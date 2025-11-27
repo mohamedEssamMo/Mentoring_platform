@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 import GroupSession from "../models/GroupSessionSchema.js";
 import Booking from "../models/GroupBookingSchema.js";
 
-
-
-
 export const createGroupSession = async (req, res) => {
   try {
     const newSession = new GroupSession({
@@ -27,6 +24,29 @@ export const createGroupSession = async (req, res) => {
       message: "Group session created successfully",
       data: newSession,
     });
+
+
+
+    // // 🔑 Create Google Meet link via calendarService
+    // try {
+    //   const { mentor,startDatetime } = req.body;
+    //   const user = {};
+    //   const date = startDatetime.split("T")[0];
+    //   const time = startDatetime.split("T")[1];
+    //   console.log(date, time);
+    //   const meetLink = await createCalendarEvent({ mentor, user, date, time });
+    //   newSession.meetingLink = meetLink;
+    //   await newSession.save();
+    // } catch (err) {
+    //   console.error("Error creating Google Calendar event:", err.message);
+    // }
+
+    // res.status(200).json({
+    //   success: true,
+    //   message: "Successfully paid and meeting created",
+    //   meetLink: newSession.meetingLink,
+    // });
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -90,12 +110,14 @@ export const getSingleGroupSession = async (req, res) => {
   }
 
   try {
-    const session = await GroupSession.findById(id)
-      .populate("mentor", "name jobTitle") 
-      .populate({
-        path: "bookings",
-        populate: { path: "user", select: "name photo" },
-      });
+    const session = await GroupSession.findById(id).populate(
+      "mentor",
+      "name jobTitle photo"
+    );
+    // .populate({
+    //   path: "bookings",
+    //   populate: { path: "user", select: "name photo" },
+    // });
 
     if (!session) {
       return res

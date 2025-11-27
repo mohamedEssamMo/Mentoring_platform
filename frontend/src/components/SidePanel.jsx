@@ -7,7 +7,6 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
   const [selectedSlot, setSelectedSlot] = useState(null);
 
   const bookingHandler = async () => {
-    console.log("Selected Slot:", selectedSlot);
     if (!selectedSlot) {
       return toast.error("Please select a time slot first.");
     }
@@ -39,6 +38,15 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
     }
   };
 
+  const today = new Date();
+  const sevenDaysLater = new Date();
+  sevenDaysLater.setDate(today.getDate() + 7);
+
+  const nextSevenDays = timeSlots.filter((s) => {
+    const d = new Date(s.day);
+    return d >= today && d <= sevenDaysLater;
+  });
+
   return (
     <div className="p-6 bg-white rounded-3xl shadow-xl border border-gray-100 max-h-[600px] overflow-y-auto">
       {/* Fee */}
@@ -55,7 +63,7 @@ const SidePanel = ({ mentorId, hourlyFee, timeSlots = [] }) => {
       </p>
 
       <DisplaySlots
-        timeSlots={timeSlots}
+        timeSlots={nextSevenDays}
         selectedSlot={selectedSlot}
         setSelectedSlot={setSelectedSlot}
         previewOnly={false}

@@ -31,7 +31,7 @@ const TimeSlotList = ({
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const handleSelect = (slot, hour) => {
-    if (previewOnly) return; // disable selection in preview mode
+    if (previewOnly) return; 
     setSelectedSlot({
       date: slot.day,
       time: hour.time,

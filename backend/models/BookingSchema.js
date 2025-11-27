@@ -23,6 +23,9 @@ const bookingSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    sessionDate: { type: Date },
+    sessionTime: { type: String },
+    
     meetLink: { type: String },
   },
   { timestamps: true }

@@ -9,30 +9,40 @@ const FaqItem = ({ item }) => {
   };
 
   return (
-    <div className="p-3 lg:p-5 rounded-[12px] border border-solid border-[#D9DCE2] mb-5 cursor-pointer">
-      <div
-        className="flex items-center justify-between gap-5"
-        onClick={toggleAccordion}
-      >
-        <h4 className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-white font-semibold">
+    <div
+      className={`p-4 lg:p-6 rounded-2xl border mb-5 transition-all duration-300 cursor-pointer shadow-sm hover:shadow-md ${
+        isOpen
+          ? "bg-white/10 border-primaryColor"
+          : "bg-white/5 border-gray-700"
+      }`}
+      onClick={toggleAccordion}
+    >
+      <div className="flex items-center justify-between gap-5">
+        <h4 className="text-[18px] lg:text-[22px] text-black font-semibold tracking-wide">
           {item.question}
         </h4>
+
         <div
-          className={`${
-            isOpen && "bg-primaryColor text-white border-none"
-          } w-7 h-7 lg:w-8 lg:h-8 border border-solid border-[#141F21] rounded flex items-center justify-center`}
+          className={`w-8 h-8 lg:w-9 lg:h-9 rounded-lg flex items-center justify-center transition-all duration-300 ${
+            isOpen
+              ? "bg-primaryColor text-white shadow-md"
+              : "bg-transparent border border-gray-600 text-gray-200"
+          }`}
         >
           {isOpen ? <AiOutlineMinus /> : <AiOutlinePlus />}
         </div>
       </div>
 
-      {isOpen && (
-        <div className="mt-4">
-          <p className="text-[14px] leading-6 lg:text-[16px] lg:leading-7 font-[400] text-gray-200">
-            {item.content}
-          </p>
-        </div>
-      )}
+      {/* Content */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "mt-4 max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <p className="text-[15px] lg:text-[17px] text-gray-900 leading-7">
+          {item.content}
+        </p>
+      </div>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import uploadImageToCloudinary from "../../utils/uploadCloudinary";
 import { BASE_URL, token } from "../../config";
 import { toast } from "react-toastify";
+import ConnectGoogleButton from "../../components/ConnectGoogleCalendar";
 
 const Profile = ({ mentorData }) => {
   const areaOfExpertiseOptions = [
@@ -308,7 +309,6 @@ const Profile = ({ mentorData }) => {
     setFormData((prev) => ({ ...prev, [key]: updated }));
   };
 
-
   const deleteItem = (key, index) => {
     setFormData((prev) => ({
       ...prev,
@@ -345,6 +345,13 @@ const Profile = ({ mentorData }) => {
       <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-10 border-b border-gray-200 dark:border-gray-700 pb-4">
         Profile Information
       </h2>
+
+      <div className="mb-8">
+        <h1 className="md:text-xl text-lg font-semibold text-red-300 dark:text-gray-200 mb-6">
+          Please connect your Google Calendar to receive appointment bookings.
+        </h1>
+        <ConnectGoogleButton mentorId={mentorData?._id} />
+      </div>
 
       <form onSubmit={updateProfileHandler} className="space-y-8">
         {/* Basic Info */}

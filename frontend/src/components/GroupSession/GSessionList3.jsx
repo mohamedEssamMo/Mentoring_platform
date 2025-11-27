@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import GSessionCard from "./GSessionCard";
 
@@ -27,7 +27,7 @@ const GSessionList = () => {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {sessions.map((session) => (
+      {sessions.slice(0, 4).map((session) => (
         <GSessionCard key={session._id} session={session} />
       ))}
     </div>

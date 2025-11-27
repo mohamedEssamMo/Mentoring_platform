@@ -2,15 +2,14 @@ import heroImg01 from "../assets/images/MentorHero.png";
 import icon01 from "../assets/images/icon01.png";
 import icon02 from "../assets/images/icon02.png";
 import icon03 from "../assets/images/icon03.png";
-import featureImg from "../assets/images/feature-img.png";
 import faqImg from "../assets/images/faq-img.png";
-import videoIcon from "../assets/images/video-icon.png";
 
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import About from "../components/About/About.jsx";
 import ServiceList from "../components/Services/ServiceList";
 import MentorList from "../components/Mentors/MentorList3.jsx";
+import GSessionList from "../components/GroupSession/GSessionList3.jsx";
 import FaqList from "../components/Faq/FaqList";
 import Testimonial from "../components/Testimonial/Testimonial";
 import Features from "../components/Features.jsx";
@@ -186,6 +185,46 @@ const Home = () => {
                   dark:to-gray-900
                   w-[98%] h-[90%] mx-auto top-[10%]
                   rounded-s skew-y-3"
+          ></div>
+        </div>
+      </section>
+
+      {/* GSession Section */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 relative overflow-hidden">
+        <div className="container relative z-10">
+          {/* Header */}
+          <div className="xl:w-[470px] mx-auto text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 dark:text-white mb-4">
+              Join Our Group Sessions
+            </h2>
+            <p className="text-base text-gray-900 dark:text-gray-300 leading-7 font-semibold">
+              Participate in live, mentor-led group sessions — interactive
+              workshops and Q&amp;A that help you learn faster and collaborate
+              with peers.
+            </p>
+          </div>
+
+          {/* Group Session List */}
+          <div className="relative z-10">
+            <GSessionList />
+          </div>
+
+          {/* Call-to-Action Button */}
+          <div className="flex justify-center mt-12">
+            <Link to="/Group_Session">
+              <button className="btn bg-gray-500 hover:bg-blue-700 text-white px-8 py-3 rounded-full transition-all duration-300 shadow-md hover:shadow-lg">
+                Explore Group Sessions
+              </button>
+            </Link>
+          </div>
+
+          {/* overlay: full-size gradient behind content */}
+          <div
+            className="absolute inset-0 -z-10 pointer-events-none
+                  bg-primaryColor
+                  dark:to-gray-900
+                  w-[98%] h-[90%] mx-auto top-[10%]
+                  rounded-s -skew-y-3"
           ></div>
         </div>
       </section>

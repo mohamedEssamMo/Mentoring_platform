@@ -10,7 +10,6 @@ export const getCheckoutSession = async (req, res) => {
     const user = await User.findById(req.userId);
 
     const { date, time } = req.body;
-    console.log(date, time)
     const slot = mentor.timeSlots.find((s) => s.day === date);
     if (!slot)
       return res.status(400).json({ message: "Selected day not available" });
@@ -55,6 +54,8 @@ export const getCheckoutSession = async (req, res) => {
       user: user._id,
       ticketPrice: mentor.hourlyFee,
       session: session.id,
+      sessionDate: date,
+      sessionTime: time,
     });
     await booking.save();
 
@@ -79,5 +80,15 @@ export const getCheckoutSession = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "Error creating checkout session" });
+  }
+};
+
+export const getUserBookings = async (req, res) => {
+  const userId = req.userId;
+  try {
+    const bookings = await Booking.find({ user: userId });
+    res.status(200).json({ success: true, message: "Bookings found", data: bookings });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Failed to fetch bookings" });
   }
 };

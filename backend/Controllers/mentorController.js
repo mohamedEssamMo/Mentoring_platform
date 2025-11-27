@@ -106,7 +106,7 @@ export const getAllMentor = async (req, res) => {
 
 export const getMentorProfile = async (req, res) => {
   try {
-    const mentorId = req.userId; // ✅ this matches authenticate()
+    const mentorId = req.userId; 
 
     const mentor = await Mentor.findById(mentorId);
 

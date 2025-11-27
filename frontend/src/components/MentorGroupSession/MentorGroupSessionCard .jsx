@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import UpdateGroupSession from "../../Dashboard/mentor-account/updateGroupSession";
 
 const MentorGroupSessionCard = ({ groupSession, onDeleted, onUpdated }) => {
+  const [open, setOpen] = useState(false);
+
   const formattedDate = new Date(groupSession.startDatetime).toLocaleString(
     "en-US",
     {
@@ -40,17 +42,30 @@ const MentorGroupSessionCard = ({ groupSession, onDeleted, onUpdated }) => {
     }
   };
 
-  const [open, setOpen] = useState(false);
+  // Status colors
+  const statusColors = {
+    upcoming: "bg-green-100 text-green-700",
+    live: "bg-red-100 text-red-700",
+    finished: "bg-gray-200 text-gray-700",
+  };
 
   return (
-    
-    <div className="relative w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="relative w-full max-w-md bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300">
       {/* Status Badge */}
+      <div
+        className={`absolute top-3 right-3 px-3 py-1 rounded-full font-semibold text-sm 
+          shadow-md z-20
+          ${statusColors[groupSession.status] || "bg-gray-100 text-gray-800"}
+        `}
+      >
+        {groupSession.status.toUpperCase()}
+      </div>
 
-      <div className="absolute top-2 left-2 flex gap-2 items-center">
+      {/* Edit/Delete Buttons */}
+      <div className="absolute top-3 left-3 flex gap-2 z-20">
         <button
           onClick={() => setOpen(true)}
-          className="flex items-center gap-1 bg-black text-white px-2 py-1 rounded-xl font-bold opacity-75 hover:bg-red-900 hover:opacity-100"
+          className="flex items-center gap-1 bg-primaryColor text-white px-3 py-1 rounded-xl font-semibold shadow hover:bg-primaryColor/90 transition"
         >
           <FiEdit3 /> Edit
         </button>
@@ -62,40 +77,34 @@ const MentorGroupSessionCard = ({ groupSession, onDeleted, onUpdated }) => {
         />
         <button
           onClick={onDelete}
-          className="flex items-center gap-1 bg-black text-white px-2 py-1 rounded-xl font-bold opacity-75 hover:bg-red-900 hover:opacity-100"
+          className="flex items-center gap-1 bg-red-500 text-white px-3 py-1 rounded-xl font-semibold shadow hover:bg-red-600 transition"
         >
           <RiDeleteBin6Line /> Delete
         </button>
       </div>
 
       {/* Image */}
-      <img
-        src={groupSession.imageURL}
-        alt={groupSession.topic}
-        className="w-full h-48 object-cover"
-      />
+      <div className="h-48 rounded-t-2xl overflow-hidden relative">
+        <img
+          src={groupSession.imageURL}
+          alt={groupSession.topic}
+          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+        />
+      </div>
 
       {/* Content */}
-      <div className="p-4">
-        <h3 className="text-xl font-bold text-headingColor mb-1">
+      <div className="p-5 flex flex-col gap-2">
+        <h3 className="text-2xl font-bold text-gray-900">
           {groupSession.topic}
         </h3>
-        <p className="text-sm text-gray-600 mb-2">{groupSession.description}</p>
+        <p className="text-gray-600 text-sm line-clamp-3">
+          {groupSession.description}
+        </p>
 
-        <div className="text-sm text-gray-500 mb-2">
-          <strong>🗓️</strong> {formattedDate}
-        </div>
-        <div className="text-sm text-gray-500 mb-2">
-          <strong>⏱️</strong> Duration: {groupSession.durationMinutes} mins
-        </div>
-        <div className="text-sm text-gray-500 mb-2">
-          <strong>👥</strong> Max Participants: {groupSession.maxParticipants}
-        </div>
-        <div className="text-sm text-gray-500 mb-2">
-          <strong>🎟️</strong> Ticket Price: ${groupSession.ticketPrice}
-        </div>
-        <div className="text-sm text-gray-500 mb-2">
-          <strong>☄️</strong> status: {groupSession.status}
+        <div className="text-gray-500 text-sm flex flex-col gap-1 mt-2">
+          <p>🗓️ {formattedDate}</p>
+          <p>⏱️ Duration: {groupSession.durationMinutes} mins</p>
+          <p>☄️ Status: {groupSession.status}</p>
         </div>
       </div>
     </div>

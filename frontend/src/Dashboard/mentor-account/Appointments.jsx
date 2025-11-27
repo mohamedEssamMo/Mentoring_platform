@@ -10,16 +10,13 @@ const Appointments = ({ appointments }) => {
               Name
             </th>
             <th scope="col" className="px-6 py-3">
-              Gender
+              Session Date
             </th>
             <th scope="col" className="px-6 py-3">
-              Payment
+              Session Time
             </th>
             <th scope="col" className="px-6 py-3">
-              Price
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Booked on
+              Meeting link
             </th>
           </tr>
         </thead>
@@ -49,31 +46,24 @@ const Appointments = ({ appointments }) => {
                 </div>
               </th>
 
-              <td className="px-6 py-4 text-gray-700 dark:text-gray-300 capitalize">
-                {item.user?.gender}
-              </td>
 
-              <td className="px-6 py-4">
-                <div
-                  className={`flex items-center gap-2 font-semibold ${
-                    item.isPaid ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  <span
-                    className={`h-2.5 w-2.5 rounded-full ${
-                      item.isPaid ? "bg-green-500" : "bg-red-500"
-                    }`}
-                  ></span>
-                  {item.isPaid ? "Paid" : "Unpaid"}
-                </div>
-              </td>
-
-              <td className="px-6 py-4 font-medium text-gray-800 dark:text-gray-200">
-                ${item.ticketPrice}
+              <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
+                {formateDate(item.sessionDate)}
               </td>
 
               <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
-                {formateDate(item.createdAt)}
+                {item.sessionTime}
+              </td>
+
+              <td className="px-6 py-4 text-gray-600 dark:text-gray-400">
+                <a
+                  href={item.meetLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white hover:underline bg-primaryColor px-3 py-2 rounded-md whitespace-nowrap"
+                >
+                  Join Meeting <span className="font-bold text-2xl">→</span>
+                </a>
               </td>
             </tr>
           ))}

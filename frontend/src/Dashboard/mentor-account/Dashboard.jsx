@@ -11,7 +11,6 @@ import DefaultMentor from "../../assets/images/feature-img.png";
 import Appointment from "./Appointments";
 import MyGroupSession from "./MentorGroupSessions";
 import CreateGroupSession from "./CreateGroupSession";
-import ConnectGoogleButton from "../../components/ConnectGoogleCalendar"
 const Dashboard = () => {
   const {
     data: mentorData,
@@ -142,9 +141,6 @@ const Dashboard = () => {
                       </p>
                     </div>
                   </div>
-
-                  <h1>Welcome to your dashboard</h1>
-                  <ConnectGoogleButton mentorId={mentorData?._id} />
                   {/* Links Section */}
                   {Array.isArray(mentorData?.links) &&
                     mentorData.links.filter(Boolean).length > 0 && (

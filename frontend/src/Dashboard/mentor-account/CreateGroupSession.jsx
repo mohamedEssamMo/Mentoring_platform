@@ -208,6 +208,26 @@ const CreateGroupSession = ({ mentorId }) => {
             />
           </div>
 
+          {/* Meeting Link */}
+          <div className="mb-0">
+            <label
+              htmlFor="meetingLink"
+              className="block text-headingColor font-semibold mb-2"
+            >
+              Meeting Link
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Meeting Link"
+              name="meetingLink"
+              id="meetingLink"
+              value={formData.meetingLink}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border border-solid border-gray-300 focus:outline-none focus:border-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor rounded-md"
+              required
+            />
+          </div>
+
           {/* Image Upload */}
           <div className="mb-0 md:col-span-2">
             <label className="block text-headingColor font-semibold mb-2">
@@ -238,9 +258,7 @@ const CreateGroupSession = ({ mentorId }) => {
                   className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover rounded-md border"
                 />
               ) : (
-                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-50 rounded-md border flex items-center justify-center text-sm text-textColor">
-                  
-                </div>
+                <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gray-50 rounded-md border flex items-center justify-center text-sm text-textColor"></div>
               )}
             </div>
           </div>

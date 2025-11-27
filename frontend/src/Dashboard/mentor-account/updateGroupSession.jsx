@@ -23,6 +23,7 @@ const UpdateGroupSession = ({ groupSession, open, setOpen, onUpdated }) => {
     durationMinutes: groupSession.durationMinutes,
     maxParticipants: groupSession.maxParticipants,
     ticketPrice: groupSession.ticketPrice,
+    meetingLink: groupSession.meetingLink,
   });
 
   // Handle input changes
@@ -83,7 +84,7 @@ const UpdateGroupSession = ({ groupSession, open, setOpen, onUpdated }) => {
   };
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={open} onClose={setOpen} className="relative z-30">
       {/* BACKDROP */}
       <DialogBackdrop
         transition
@@ -134,7 +135,7 @@ const UpdateGroupSession = ({ groupSession, open, setOpen, onUpdated }) => {
                     />
                   </div>
 
-                  {/* Ticket Price */}
+                  {/* Ticket Price
                   <div className="flex flex-col gap-2">
                     <label className="font-semibold">
                       Ticket Price (in USD)
@@ -147,7 +148,7 @@ const UpdateGroupSession = ({ groupSession, open, setOpen, onUpdated }) => {
                       className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primaryColor focus:outline-none"
                       required
                     />
-                  </div>
+                  </div> */}
 
                   {/* Start Date */}
                   <div className="flex flex-col gap-2">
@@ -174,13 +175,25 @@ const UpdateGroupSession = ({ groupSession, open, setOpen, onUpdated }) => {
                     />
                   </div>
 
-                  {/* Max Participants */}
+                  {/* Max Participants
                   <div className="flex flex-col gap-2">
                     <label className="font-semibold">Max Participants</label>
                     <input
                       type="number"
                       name="maxParticipants"
                       value={updatedItem.maxParticipants}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primaryColor focus:outline-none"
+                    />
+                  </div> */}
+
+                  {/* Meeting Link */}
+                  <div className="flex flex-col gap-2">
+                    <label className="font-semibold">Meeting Link</label>
+                    <input
+                      type="text"
+                      name="meetingLink"
+                      value={updatedItem.meetingLink}
                       onChange={handleInputChange}
                       className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primaryColor focus:outline-none"
                     />
