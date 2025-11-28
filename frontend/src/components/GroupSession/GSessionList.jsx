@@ -1,6 +1,7 @@
 import  { useEffect, useState } from "react";
 import axios from "axios";
 import GSessionCard from "./GSessionCard";
+import { BASE_URL } from "../../config";
 
 const GSessionList = () => {
   const [sessions, setSessions] = useState([]);
@@ -8,7 +9,7 @@ const GSessionList = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/v1/group_sessions")
+      .get(`${BASE_URL}/group_sessions`)
       .then((res) => {
         console.log("API RESPONSE:", res.data);
         setSessions(res.data.data);

@@ -46,7 +46,7 @@ const GSessionDetails = () => {
   });
 
   return (
-    <div className="max-w-5xl mx-auto p-6 mt-40">
+    <div className="max-w-5xl mx-auto p-6 mt-20 min-h-screen">
       {/* --- USER NAME AT TOP --- */}
       {user?.name && (
         <p className="text-lg font-semibold text-gray-700 mb-4">
