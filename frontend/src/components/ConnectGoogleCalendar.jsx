@@ -1,4 +1,4 @@
-
+import { BASE_URL } from "../config";
 const ConnectGoogleButton = ({mentorId}) => {
 
   const handleGoogleAuth = () => {
@@ -6,8 +6,7 @@ const ConnectGoogleButton = ({mentorId}) => {
       alert("You must be logged in first");
       return;
     }
-    // Redirect to backend Google OAuth with mentorId in state
-    window.location.href = `http://localhost:5000/api/v1/auth/google?state=${mentorId}`;
+    window.location.href = `${BASE_URL}/auth/google?state=${mentorId}`;
   };
 
   return (

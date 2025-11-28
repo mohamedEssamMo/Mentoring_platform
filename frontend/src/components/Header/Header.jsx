@@ -4,6 +4,8 @@ import { BiMenu, BiX } from "react-icons/bi";
 import logo from "../../assets/images/logo.png";
 import { authContext } from "../../context/AuthContext";
 import Avatar from "../../assets/images/avatar-icon.png";
+import { token } from "../../config";
+
 
 const navLinks = [
   { path: "/home", display: "Home" },
@@ -15,7 +17,7 @@ const navLinks = [
 
 const Header = () => {
   const headerRef = useRef(null);
-  const { user, role, token } = useContext(authContext);
+  const { user, role } = useContext(authContext);
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Sticky header with shadow
