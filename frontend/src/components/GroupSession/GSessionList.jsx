@@ -2,6 +2,7 @@ import  { useEffect, useState } from "react";
 import axios from "axios";
 import GSessionCard from "./GSessionCard";
 import { BASE_URL } from "../../config";
+import Loader from "../Loader/Loading"
 
 const GSessionList = () => {
   const [sessions, setSessions] = useState([]);
@@ -11,17 +12,15 @@ const GSessionList = () => {
     axios
       .get(`${BASE_URL}/group_sessions`)
       .then((res) => {
-        console.log("API RESPONSE:", res.data);
         setSessions(res.data.data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error("API ERROR:", err);
+      .catch(() => {
         setLoading(false);
       });
   }, []);
 
-  if (loading) return <h2 className="text-center mt-10">Loading...</h2>;
+  if (loading) return <Loader />;
 
   if (sessions.length === 0)
     return <h2 className="text-center mt-10">No sessions found</h2>;

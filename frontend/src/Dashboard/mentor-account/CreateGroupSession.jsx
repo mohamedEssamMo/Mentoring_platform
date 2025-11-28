@@ -68,11 +68,9 @@ const CreateGroupSession = ({ mentorId }) => {
 
       toast.success(message);
     } catch (err) {
-      console.error(err);
       toast.error(
         "creation failed — please verify your details and try again."
       );
-      console.log(err);
     } finally {
       setLoading(false);
     }

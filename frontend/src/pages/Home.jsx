@@ -224,7 +224,7 @@ const Home = () => {
                   bg-primaryColor
                   dark:to-gray-900
                   w-[98%] h-[90%] mx-auto top-[10%]
-                  rounded-s -skew-y-3"
+                  rounded-s skew-y-3"
           ></div>
         </div>
       </section>
