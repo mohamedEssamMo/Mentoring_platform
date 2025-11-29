@@ -45,7 +45,7 @@ const Dashboard = () => {
 
     return { href, label };
   };
-  
+
   return (
     <section className="mt-20 py-12 bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-950 dark:to-gray-900 min-h-screen transition-colors duration-700">
       <div className="max-w-[1300px] mx-auto px-5">
@@ -54,9 +54,9 @@ const Dashboard = () => {
         ) : error ? (
           <Error />
         ) : (
-          <div className="grid lg:grid-cols-3 gap-10 lg:gap-14">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-10 lg:gap-14">
             {/* Sidebar Tabs */}
-            <aside className="bg-white/70 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-lg rounded-3xl p-6 lg:sticky lg:top-24 h-fit transition-all duration-500 hover:shadow-2xl">
+            <aside className="w-full bg-white/70 dark:bg-gray-900/80 backdrop-blur-xl border border-gray-200 dark:border-gray-800 shadow-lg rounded-3xl p-4 sm:p-6 lg:sticky lg:top-24 h-fit transition-all duration-500 hover:shadow-2xl">
               <Tabs tab={tab} setTab={setTab} />
             </aside>
 
@@ -86,10 +86,10 @@ const Dashboard = () => {
 
               {/* Overview Tab */}
               {tab === "overview" && (
-                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 md:p-8 transition-all duration-500 hover:shadow-2xl">
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-2 sm:p-4 md:p-6 transition-all duration-500 hover:shadow-2xl py-6">
                   {/* Mentor Header */}
                   <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 mb-8">
-                    <figure className="w-[160px] h-[160px] rounded-3xl overflow-hidden shadow-lg ring-2 ring-indigo-400/50">
+                    <figure className="w-36 h-36 sm:w-[160px] sm:h-[160px] rounded-3xl overflow-hidden shadow-lg ring-2 ring-indigo-400/50">
                       <img
                         src={mentorData?.photo || DefaultMentor}
                         alt={mentorData?.name || "Mentor photo"}
@@ -102,7 +102,7 @@ const Dashboard = () => {
                         {mentorData?.areaOfExpertise || "Not Specified"}
                       </span>
 
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-100">
                         {mentorData?.name}{" "}
                         <span className="font-mono text-sm text-gray-400">
                           /{mentorData?.location}
@@ -136,7 +136,7 @@ const Dashboard = () => {
                         </p>
                       )}
 
-                      <p className="text-gray-600 dark:text-gray-300 mt-3 leading-relaxed text-sm md:text-base max-w-md">
+                      <p className="text-gray-600 dark:text-gray-300 mt-3 leading-relaxed text-sm md:text-base max-w-full sm:max-w-md">
                         {mentorData?.bio || "Mentor bio not provided."}
                       </p>
                     </div>
@@ -183,28 +183,28 @@ const Dashboard = () => {
 
               {/* Appointments Tab */}
               {tab === "appointments" && (
-                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-2 sm:p-4 md:p-6 transition-all duration-500 hover:shadow-2xl">
                   <Appointment appointments={mentorData?.appointments || []} />
                 </div>
               )}
 
               {/* Settings Tab */}
               {tab === "settings" && (
-                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-2 sm:p-4 md:p-6 transition-all duration-500 hover:shadow-2xl">
                   <Profile mentorData={mentorData} />
                 </div>
               )}
 
               {/* mentorGroupSessions Tab */}
               {tab === "mentorGroupSessions" && (
-                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-2 sm:p-4 md:p-6 transition-all duration-500 hover:shadow-2xl">
                   <MyGroupSession />
                 </div>
               )}
 
               {/* CreateGroupSession Tab */}
               {tab === "CreateGroupSession" && (
-                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-6 transition-all duration-500 hover:shadow-2xl">
+                <div className="bg-white dark:bg-gray-900 shadow-xl rounded-3xl p-2 sm:p-4 md:p-6 transition-all duration-500 hover:shadow-2xl">
                   <CreateGroupSession mentorId={mentorData?._id} />
                 </div>
               )}

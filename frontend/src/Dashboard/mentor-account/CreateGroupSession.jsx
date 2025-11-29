@@ -77,8 +77,8 @@ const CreateGroupSession = ({ mentorId }) => {
   };
 
   return (
-    <section className="relative w-full py-8 px-4 sm:px-6">
-      <div className="relative z-10 w-full max-w-3xl bg-white rounded-lg shadow-xl p-6 sm:p-8 mx-auto">
+    <section className="relative w-full py-8 px-2 sm:px-4">
+      <div className="relative z-10 w-full max-w-3xl bg-white rounded-lg shadow-xl p-2 sm:p-4 mx-auto">
         <h3 className="text-headingColor md:text-[22px] text-lg leading-9 font-bold mb-4 text-center">
           Create a <span className="text-primaryColor">Group Session</span>
         </h3>

@@ -60,7 +60,7 @@ const MyAccount = () => {
               <div className="mt-8 w-full flex flex-col gap-3">
                 <button
                   onClick={handleLogout}
-                  className="w-full bg-gray-900 p-3 rounded-lg text-white text-base font-medium hover:bg-gray-800 transition-colors"
+                  className="w-full mt-2 py-3 px-4 bg-red-100 text-red-600 rounded-lg font-medium hover:bg-red-200 transition-all shadow-sm"
                 >
                   Logout
                 </button>
@@ -69,13 +69,22 @@ const MyAccount = () => {
 
             {/* Right Panel */}
             <div className="md:col-span-2">
-              <div className="flex gap-4 border-b border-gray-200">
+              <div className="relative flex border-b border-gray-200 select-none">
+                {/* Sliding gradient underline */}
+                <span
+                  className={`absolute bottom-0 h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 rounded transition-all duration-500 ease-in-out`}
+                  style={{
+                    left: tab === "bookings" ? "0%" : "50%",
+                    width: "50%",
+                  }}
+                />
+
                 <button
                   onClick={() => setTab("bookings")}
-                  className={`px-5 py-2 rounded-t-lg font-semibold transition-colors ${
+                  className={`flex-1 text-center py-3 font-semibold transition transform duration-300 ease-out ${
                     tab === "bookings"
-                      ? "bg-primaryColor text-white shadow-md"
-                      : "bg-white text-gray-800 hover:bg-gray-100"
+                      ? "text-primaryColor scale-105"
+                      : "text-gray-600 hover:text-primaryColor hover:scale-105"
                   }`}
                 >
                   My Bookings
@@ -83,17 +92,17 @@ const MyAccount = () => {
 
                 <button
                   onClick={() => setTab("settings")}
-                  className={`px-5 py-2 rounded-t-lg font-semibold transition-colors ${
+                  className={`flex-1 text-center py-3 font-semibold transition transform duration-300 ease-out ${
                     tab === "settings"
-                      ? "bg-primaryColor text-white shadow-md"
-                      : "bg-white text-gray-800 hover:bg-gray-100"
+                      ? "text-primaryColor scale-105"
+                      : "text-gray-600 hover:text-primaryColor hover:scale-105"
                   }`}
                 >
                   Profile Settings
                 </button>
               </div>
 
-              <div className="mt-6 bg-white rounded-2xl p-6 shadow-md">
+              <div className="mt-6 bg-white rounded-2xl py-6 px-2 shadow-md">
                 {tab === "bookings" && <MyBookings />}
                 {tab === "settings" && <Profile user={userData} />}
               </div>

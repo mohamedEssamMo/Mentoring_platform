@@ -64,7 +64,7 @@ const MentorAbout = ({ name, about, qualifications, experiences, links }) => {
                     {item.university}
                   </p>
                 </div>
-                <span className="text-irisBlueColor text-[14px] font-medium whitespace-nowrap">
+                <span className="text-irisBlueColor text-[14px] font-medium">
                   {formateDate(item.startingDate)} -{" "}
                   {formateDate(item.endingDate)}
                 </span>

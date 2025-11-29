@@ -47,19 +47,26 @@ const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-primaryColor to-[#00133f] text-white pt-12 pb-6">
-      <div className="container mx-auto grid md:grid-cols-4 lg:grid-cols-6 gap-8">
+    <footer className="bg-gradient-to-r from-primaryColor to-[#100192] text-white pt-12 md:pt-16 pb-6">
+      <div className="container mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8">
         {/* Main Info Section */}
-        <div className="md:col-span-2 lg:col-span-3">
-          <img src={logo} alt="DEPI Logo" className="w-52 mb-3" />
-          <p className="text-sm leading-7 font-medium text-white">
+        <div className="md:col-span-2 lg:col-span-3 animate-fadeInUp">
+          <img
+            src={logo}
+            alt="DEPI Logo"
+            className="w-40 sm:w-48 md:w-52 mb-4 sm:mb-6 transition-transform duration-500 hover:scale-105"
+          />
+          <p className="text-sm sm:text-base leading-6 sm:leading-7 font-medium text-white animate-fadeIn delay-100">
             DEPI is a mentorship platform bridging learners with professionals.
             Gain guidance, confidence, and practical skills for a successful
             career.
           </p>
-          <div className="flex items-center gap-6 mt-5">
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-4 sm:gap-6 mt-5">
             {socialLinks.map((link, index) => (
-              <div key={index} className="flex flex-col items-center">
+              <div
+                key={index}
+                className="flex flex-col items-center animate-fadeIn delay-[200ms]"
+              >
                 <a
                   href={link.path}
                   target="_blank"
@@ -69,21 +76,25 @@ const Footer = () => {
                 >
                   {link.icon}
                 </a>
-                <span className="mt-2 text-xs text-white">{link.title}</span>
+                <span className="mt-2 text-xs sm:text-sm text-white text-center animate-fadeIn delay-[300ms]">
+                  {link.title}
+                </span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Quick Links */}
-        <div>
-          <h2 className="text-xl font-bold mb-6 text-white">Quick Links</h2>
-          <ul>
+        <div className="animate-fadeIn delay-[400ms]">
+          <h2 className="text-lg sm:text-xl font-bold mb-5 sm:mb-6 text-white animate-fadeIn delay-100">
+            Quick Links
+          </h2>
+          <ul className="space-y-3">
             {quickLinks01.map((item, index) => (
-              <li key={index} className="mb-3">
+              <li key={index} className="animate-fadeIn delay-[200ms]">
                 <Link
                   to={item.path}
-                  className="hover:text-yellow-400 transition-colors text-[16px] font-medium"
+                  className="hover:text-yellow-400 transition-colors duration-300 text-[15px] sm:text-[16px] font-medium hover:translate-x-1"
                 >
                   {item.display}
                 </Link>
@@ -92,14 +103,16 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
-          <h2 className="text-xl font-bold mb-6 text-white">I want to:</h2>
-          <ul>
+        <div className="animate-fadeIn delay-[500ms]">
+          <h2 className="text-lg sm:text-xl font-bold mb-5 sm:mb-6 text-white animate-fadeIn delay-100">
+            I want to:
+          </h2>
+          <ul className="space-y-3">
             {quickLinks02.map((item, index) => (
-              <li key={index} className="mb-3">
+              <li key={index} className="animate-fadeIn delay-[200ms]">
                 <Link
                   to={item.path}
-                  className="hover:text-yellow-400 transition-colors text-[16px] font-medium"
+                  className="hover:text-yellow-400 transition-colors duration-300 text-[15px] sm:text-[16px] font-medium hover:translate-x-1"
                 >
                   {item.display}
                 </Link>
@@ -108,14 +121,16 @@ const Footer = () => {
           </ul>
         </div>
 
-        <div>
-          <h2 className="text-xl font-bold mb-6 text-white">Support</h2>
-          <ul>
+        <div className="animate-fadeIn delay-[600ms]">
+          <h2 className="text-lg sm:text-xl font-bold mb-5 sm:mb-6 text-white animate-fadeIn delay-100">
+            Support
+          </h2>
+          <ul className="space-y-3">
             {quickLinks03.map((item, index) => (
-              <li key={index} className="mb-3">
+              <li key={index} className="animate-fadeIn delay-[200ms]">
                 <Link
                   to={item.path}
-                  className="hover:text-yellow-400 transition-colors text-[16px] font-medium"
+                  className="hover:text-yellow-400 transition-colors duration-300 text-[15px] sm:text-[16px] font-medium hover:translate-x-1"
                 >
                   {item.display}
                 </Link>
@@ -125,11 +140,11 @@ const Footer = () => {
         </div>
       </div>
 
-      <p className="text-center mt-10 text-sm">
+      <p className="text-center mt-10 text-sm sm:text-base text-white animate-fadeIn delay-[700ms]">
         &copy; {year} DEPI. All rights reserved. Developed by{" "}
         <span className="font-semibold hover:text-yellow-400 transition-colors">
           DEPI Team 4
-        </span>{" "}
+        </span>
       </p>
     </footer>
   );
